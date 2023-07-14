@@ -10,6 +10,10 @@ const affiliateSubscriptionSchema = new Schema({
         type: String,
         default: "Free"
     },
+    plan_active: {
+        type: Boolean,
+        defatul: true
+    },
     influencer_active_campaigns: {
            type: Number,
            default: 3

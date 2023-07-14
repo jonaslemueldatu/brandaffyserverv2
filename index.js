@@ -6,8 +6,7 @@ const mongoose = require('mongoose')
 
 const app = express()
 const AffiliateLoginRoute = require('./routers/affiliatelogin')
-
-
+const affiliateRegisterRoute = require('./routers/affiliateregister')
 
 mongoose.connect(process.env.MONGO_DB_URI, {useNewUrlParser: true},{useUnifiedTopology: true})
 
@@ -32,5 +31,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use('/api/affiliate/login', AffiliateLoginRoute)
+app.use('/api/affiliate/register', affiliateRegisterRoute)
 
 app.listen(process.env.SERVER_PORT, () => console.log(`App is now running at ${process.env.SERVER_PORT}!`))
