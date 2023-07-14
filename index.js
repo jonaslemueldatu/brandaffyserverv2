@@ -5,6 +5,8 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 const app = express()
+const AffiliateLoginRoute = require('./routers/affiliatelogin')
+
 
 
 mongoose.connect(process.env.MONGO_DB_URI, {useNewUrlParser: true},{useUnifiedTopology: true})
@@ -23,4 +25,6 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-app.listen(process.env.PORT, () => console.log("App is now running!"))
+app.use('/api/affiliate/login', AffiliateLoginRoute)
+
+app.listen(process.env.SERVER_PORT, () => console.log(`App is now running at ${process.env.SERVER_PORT}!`))
