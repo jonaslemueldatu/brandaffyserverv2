@@ -22,7 +22,11 @@ function logger(req, res, next) {
 
 app.use(logger)
 app.use(cors({
-    origin: `${process.env.CORS_ACCESS_HEADER_ORIGIN}`
+    origin: `${process.env.CORS_ACCESS_HEADER_ORIGIN}`,
+    methods: "GET, POST, PUT, DELETE",
+    allowedHeaders: "Content-Type",
+    credentials: true,
+    optionsSuccessStatus: 200
 }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
