@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const affiliateProfile = require("../models/affiliateProfile");
-const affiliateSubscription = require("../models/affiliateSubscription");
+const affiliateProfile = require("../../models/affiliateProfile")
+const affiliateSubscription = require("../../models/affiliateSubscription");
 const jwt = require("jsonwebtoken");
 
 router.post("/", (req, res) => {
