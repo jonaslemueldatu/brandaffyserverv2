@@ -18,6 +18,9 @@ const affiliateProfileSchema = new Schema({
     email: String,
     password: String,
     birthdate: Date,
+    age: Number,
+    gender: String,
+    phone_number: String,
     province: String,
     country: String,
     registerDate: {

@@ -6,7 +6,9 @@ const mongoose = require("mongoose");
 
 const app = express();
 const AffiliateLoginRoute = require("./routers/affiliate/affiliatelogin");
-const affiliateRegisterRoute = require("./routers/affiliate/affiliateregister");
+const AffiliateregisterRoute = require("./routers/affiliate/affiliateregister");
+const UpdateprofileRoute = require("./routers/updateprofile");
+const GetprofileRoute = require("./routers/getprofile");
 const LogoutRoute = require("./routers/logout");
 
 mongoose.connect(
@@ -38,7 +40,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/api/affiliate/login", AffiliateLoginRoute);
-app.use("/api/affiliate/register", affiliateRegisterRoute);
+app.use("/api/affiliate/register", AffiliateregisterRoute);
+app.use("/api/updateprofile", UpdateprofileRoute);
+app.use("/api/getprofile", GetprofileRoute);
 app.use("/api/logout", LogoutRoute);
 
 app.listen(process.env.SERVER_PORT, () =>
