@@ -21,57 +21,54 @@ router.post("/", upload.single("profile_picture"), async (req, res) => {
     await unlinkFile(file.path);
   }
 
-  affiliateProfile.findOne({ _id: req.body.id }).then((data) => {
-    if (data && req.body.type === "profile") {
-      if (data.profile_picture.includes("placeholder") && req.file) {
-        data.profile_picture = result.Location;
-      }
-      if (data.birthdate != req.body.birthdate) {
-        data.birthdate = req.body.birthdate;
-      }
-      if (data.first_name != req.body.firstname) {
-        data.first_name = req.body.firstname;
-      }
-      if (data.last_name != req.body.lastname) {
-        data.last_name = req.body.lastname;
-      }
-      if (data.age != req.body.age) {
-        data.age = req.body.age;
-      }
-      if (data.gender != req.body.gender) {
-        data.gender = req.body.gender;
-      }
-      data.save().then(
-        res.status(200),
-        res.json({
-          msg: "Update successful",
-          user_profile: data,
-        })
-      );
-    } else if (data && req.body.type === "contact") {
-      if (data.phone_number != req.body.phone_number) {
-        data.phone_number = req.body.phone_number;
-      }
-      if (data.province != req.body.province) {
-        data.province = req.body.province;
-      }
-      if (data.country != req.body.country) {
-        data.country = req.body.country;
-      }
-      data.save().then(
-        res.status(200),
-        res.json({
-          msg: "Update successful",
-          user_profile: data,
-        })
-      );
-    } else {
-      res.status(200);
-      res.json({
-        err: "Failed to update",
-      });
+  const data = await affiliateProfile.findOne({ _id: req.body.id });
+  if (data && req.body.type === "profile") {
+    if (data.profile_picture.includes("placeholder") && req.file) {
+      data.profile_picture = result.Location;
     }
-  });
+    if (data.birthdate != req.body.birthdate) {
+      data.birthdate = req.body.birthdate;
+    }
+    if (data.first_name != req.body.firstname) {
+      data.first_name = req.body.firstname;
+    }
+    if (data.last_name != req.body.lastname) {
+      data.last_name = req.body.lastname;
+    }
+    if (data.age != req.body.age) {
+      data.age = req.body.age;
+    }
+    if (data.gender != req.body.gender) {
+      data.gender = req.body.gender;
+    }
+    await data.save();
+    res.status(200),
+      res.json({
+        msg: "Update successful",
+        user_profile: data,
+      });
+  } else if (data && req.body.type === "contact") {
+    if (data.phone_number != req.body.phone_number) {
+      data.phone_number = req.body.phone_number;
+    }
+    if (data.province != req.body.province) {
+      data.province = req.body.province;
+    }
+    if (data.country != req.body.country) {
+      data.country = req.body.country;
+    }
+    await data.save();
+    res.status(200),
+      res.json({
+        msg: "Update successful",
+        user_profile: data,
+      });
+  } else {
+    res.status(200);
+    res.json({
+      err: "Failed to update",
+    });
+  }
 });
 
 module.exports = router;

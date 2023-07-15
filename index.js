@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const app = express();
 const AffiliateLoginRoute = require("./routers/affiliate/affiliatelogin");
 const AffiliateregisterRoute = require("./routers/affiliate/affiliateregister");
+const BrandregisterRoute = require("./routers/brand/brandregister");
 const UpdateprofileRoute = require("./routers/updateprofile");
 const GetprofileRoute = require("./routers/getprofile");
 const LogoutRoute = require("./routers/logout");
@@ -41,6 +42,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/api/affiliate/login", AffiliateLoginRoute);
 app.use("/api/affiliate/register", AffiliateregisterRoute);
+app.use("/api/brand/register", BrandregisterRoute);
 app.use("/api/updateprofile", UpdateprofileRoute);
 app.use("/api/getprofile", GetprofileRoute);
 app.use("/api/logout", LogoutRoute);
