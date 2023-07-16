@@ -14,9 +14,13 @@ const brandSubscriptionSchema = new Schema({
            type: Number,
            default: 5
     },
-    brand_active_campaigns_left: {
+    plan_active: {
+        type: Boolean,
+        default: true
+    },
+    brand_current_active_campaigns: {
         type: Number,
-        default: 5
+        default: 0
     }, 
     expirationDate: {
         type: Date,

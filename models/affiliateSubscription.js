@@ -12,15 +12,15 @@ const affiliateSubscriptionSchema = new Schema({
     },
     plan_active: {
         type: Boolean,
-        defatul: true
+        default: true
     },
     influencer_active_campaigns: {
            type: Number,
            default: 3
     },
-    influencer_active_campaigns_left: {
+    influencer_current_active_campaigns: {
         type: Number,
-        default: 3
+        default: 0
     }, 
     expirationDate: {
         type: Date,
