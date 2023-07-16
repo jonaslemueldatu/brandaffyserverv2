@@ -7,10 +7,11 @@ const mongoose = require("mongoose");
 const app = express();
 const AffiliateLoginRoute = require("./routers/affiliate/affiliatelogin");
 const AffiliateregisterRoute = require("./routers/affiliate/affiliateregister");
-const BrandloginRoute = require("./routers/brand/brandlogin")
+const BrandloginRoute = require("./routers/brand/brandlogin");
 const BrandregisterRoute = require("./routers/brand/brandregister");
 const UpdateprofileRoute = require("./routers/updateprofile");
 const GetprofileRoute = require("./routers/getprofile");
+const GetaffiliatelistRoute = require("./routers/getaffiliatelist")
 const LogoutRoute = require("./routers/logout");
 
 mongoose.connect(
@@ -47,6 +48,7 @@ app.use("/api/brand/login", BrandloginRoute);
 app.use("/api/brand/register", BrandregisterRoute);
 app.use("/api/updateprofile", UpdateprofileRoute);
 app.use("/api/getprofile", GetprofileRoute);
+app.use("/api/getaffiliate", GetaffiliatelistRoute);
 app.use("/api/logout", LogoutRoute);
 
 app.listen(process.env.SERVER_PORT, () =>
