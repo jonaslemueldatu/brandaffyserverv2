@@ -5,7 +5,6 @@ const affiliateProfile = require("../models/affiliateProfile");
 const brandProfile = require("../models/brandProfile");
 
 router.get("/", async (req, res) => {
-  console.log(req.query.type);
   let data = {};
   switch (req.query.type) {
     case "Affiliate":
@@ -36,16 +35,29 @@ router.get("/", async (req, res) => {
           err: "Profile cannot be found!",
         });
       }
+      break;
     case "Brand":
       data = await brandProfile.findOne({ _id: req.query.id });
       if (data) {
-        console.log(data);
         res.status(200),
           res.json({
-            msg: "success!",
+            user_profile: {
+              profile_picture: data.profile_picture,
+              brand_name: data.brand_name,
+              about: data.about,
+              industry: data.industry,
+              employee_size: data.employee_size,
+              company_address: data.company_address,
+              country: data.country,
+              phone_number: data.phone_number,
+              email: data.email,
+            },
+            msg: "Profile found!",
           });
       }
+      break;
     default:
+      break;
   }
 });
 

@@ -11,8 +11,14 @@ const brandProfileSchema = new Schema({
         default: 'https://brandaffy.s3.ap-southeast-2.amazonaws.com/website+assets/profile+placeholder.jpeg'
     },
     brand_name: String,
+    about: String,
+    company_address: String,
+    country: String,
+    industry: String,
+    employee_size: Number,
     email: String,
     password: String,
+    phone_number: String, 
     registerDate: {
         type: Date,
         default: Date.now
