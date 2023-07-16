@@ -105,7 +105,7 @@ router.post("/", upload.single("profile_picture"), async (req, res) => {
           data.phone_number = req.body.phone_number;
         }
         if (data.address != req.body.address) {
-          data.address = req.body.address;
+          data.company_address = req.body.address;
         }
         if (data.country != req.body.country) {
           data.country = req.body.country;
