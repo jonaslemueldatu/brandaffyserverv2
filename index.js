@@ -10,7 +10,9 @@ const AffiliateregisterRoute = require("./routers/affiliate/affiliateregister");
 const BrandloginRoute = require("./routers/brand/brandlogin");
 const BrandregisterRoute = require("./routers/brand/brandregister");
 const BrandCreateBoxRoute = require("./routers/brand/brandcreatebox")
-const GetboxRoute = require("./routers/brand/getboxlist")
+const BrandDeleteBoxRoute = require("./routers/brand/branddeletebox")
+const GetboxRoute = require("./routers/brand/brandgetbox")
+const GetboxlistRoute = require("./routers/brand/getboxlist")
 const UpdateprofileRoute = require("./routers/updateprofile");
 const GetprofileRoute = require("./routers/getprofile");
 const GetaffiliatelistRoute = require("./routers/getaffiliatelist")
@@ -49,7 +51,9 @@ app.use("/api/affiliate/register", AffiliateregisterRoute);
 app.use("/api/brand/login", BrandloginRoute);
 app.use("/api/brand/register", BrandregisterRoute);
 app.use("/api/brand/box/create", BrandCreateBoxRoute);
-app.use("/api/brand/box/getlist", GetboxRoute);
+app.use("/api/brand/box/delete", BrandDeleteBoxRoute);
+app.use("/api/brand/box/getbox", GetboxRoute);
+app.use("/api/brand/box/getlist", GetboxlistRoute);
 app.use("/api/updateprofile", UpdateprofileRoute);
 app.use("/api/getprofile", GetprofileRoute);
 app.use("/api/affiliate/getlist", GetaffiliatelistRoute);
