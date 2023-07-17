@@ -9,13 +9,14 @@ const AffiliateLoginRoute = require("./routers/affiliate/affiliatelogin");
 const AffiliateregisterRoute = require("./routers/affiliate/affiliateregister");
 const BrandloginRoute = require("./routers/brand/brandlogin");
 const BrandregisterRoute = require("./routers/brand/brandregister");
-const BrandCreateBoxRoute = require("./routers/brand/brandcreatebox")
-const BrandDeleteBoxRoute = require("./routers/brand/branddeletebox")
-const GetboxRoute = require("./routers/brand/brandgetbox")
-const GetboxlistRoute = require("./routers/brand/getboxlist")
+const BrandCreateBoxRoute = require("./routers/brand/brandcreatebox");
+const BrandDeleteBoxRoute = require("./routers/brand/branddeletebox");
+const GetboxRoute = require("./routers/brand/brandgetbox");
+const BrandRemoveAffiliateRoute = require("./routers/brand/brandboxremoveaffiliate");
+const GetboxlistRoute = require("./routers/brand/getboxlist");
 const UpdateprofileRoute = require("./routers/updateprofile");
 const GetprofileRoute = require("./routers/getprofile");
-const GetaffiliatelistRoute = require("./routers/getaffiliatelist")
+const GetaffiliatelistRoute = require("./routers/getaffiliatelist");
 const LogoutRoute = require("./routers/logout");
 
 mongoose.connect(
@@ -53,6 +54,7 @@ app.use("/api/brand/register", BrandregisterRoute);
 app.use("/api/brand/box/create", BrandCreateBoxRoute);
 app.use("/api/brand/box/delete", BrandDeleteBoxRoute);
 app.use("/api/brand/box/getbox", GetboxRoute);
+app.use("/api/brand/box/removeaffiliate", BrandRemoveAffiliateRoute);
 app.use("/api/brand/box/getlist", GetboxlistRoute);
 app.use("/api/updateprofile", UpdateprofileRoute);
 app.use("/api/getprofile", GetprofileRoute);
