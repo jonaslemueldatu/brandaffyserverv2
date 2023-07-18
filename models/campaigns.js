@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const campaignsSchema = new Schema({
   brand_owner_id: String,
+  platform: String,
   status: {
     type: String,
     default: "Ready to Start",

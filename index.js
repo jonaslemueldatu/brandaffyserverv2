@@ -14,6 +14,8 @@ const BrandAddAffiliateRoute = require("./routers/brand/brandboxaddaffiliate");
 const GetboxlistRoute = require("./routers/brand/getboxlist");
 
 const CampaigncreateRoute = require("./routers/brand/campaigncreate")
+const CampaigngetlistRoute = require("./routers/getcampaignlist")
+const CampaignupdateRoute = require("./routers/campaignupdate")
 
 const UpdateprofileRoute = require("./routers/updateprofile");
 const GetprofileRoute = require("./routers/getprofile");
@@ -61,6 +63,8 @@ app.use("/api/brand/box/addaffiliate", BrandAddAffiliateRoute);
 app.use("/api/brand/box/getlist", GetboxlistRoute);
 
 app.use("/api/brand/campaign/create", CampaigncreateRoute)
+app.use("/api/campaign/getlist", CampaigngetlistRoute)
+app.use("/api/campaign/update", CampaignupdateRoute)
 
 app.use("/api/updateprofile", UpdateprofileRoute);
 app.use("/api/getprofile", GetprofileRoute);
