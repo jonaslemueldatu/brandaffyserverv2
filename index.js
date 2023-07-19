@@ -55,20 +55,20 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use("/api/brand/box/create", BrandCreateBoxRoute);
-app.use("/api/brand/box/delete", BrandDeleteBoxRoute);
-app.use("/api/brand/box/getbox", GetboxRoute);
-app.use("/api/brand/box/removeaffiliate", BrandRemoveAffiliateRoute);
-app.use("/api/brand/box/addaffiliate", BrandAddAffiliateRoute);
-app.use("/api/brand/box/getlist", GetboxlistRoute);
+app.use("/api/box/create", BrandCreateBoxRoute);
+app.use("/api/box/delete", BrandDeleteBoxRoute);
+app.use("/api/box/getbox", GetboxRoute);
+app.use("/api/box/removeaffiliate", BrandRemoveAffiliateRoute);
+app.use("/api/box/addaffiliate", BrandAddAffiliateRoute);
+app.use("/api/box/getlist", GetboxlistRoute);
 
-app.use("/api/brand/campaign/create", CampaigncreateRoute);
+app.use("/api/campaign/create", CampaigncreateRoute);
 app.use("/api/campaign/getlist", CampaigngetlistRoute);
 app.use("/api/campaign/update", CampaignupdateRoute);
 
-app.use("/api/updateprofile", UpdateprofileRoute);
-app.use("/api/getprofile", GetprofileRoute);
-app.use("/api/affiliate/getlist", GetaffiliatelistRoute);
+app.use("/api/profile/update", UpdateprofileRoute);
+app.use("/api/profile/get", GetprofileRoute);
+app.use("/api/profile/getlist", GetaffiliatelistRoute);
 
 app.use("/api/affiliate/login", AffiliateLoginRoute);
 app.use("/api/affiliate/register", AffiliateregisterRoute);
