@@ -6,26 +6,26 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-const BrandCreateBoxRoute = require("./routers/brand/brandcreatebox");
-const BrandDeleteBoxRoute = require("./routers/brand/branddeletebox");
-const GetboxRoute = require("./routers/brand/brandgetbox");
-const BrandRemoveAffiliateRoute = require("./routers/brand/brandboxremoveaffiliate");
-const BrandAddAffiliateRoute = require("./routers/brand/brandboxaddaffiliate");
-const GetboxlistRoute = require("./routers/brand/getboxlist");
+const BrandCreateBoxRoute = require("./routers/dashboard/boxcreate");
+const BrandDeleteBoxRoute = require("./routers/dashboard/boxdelete");
+const GetboxRoute = require("./routers/dashboard/boxgetdetails");
+const BrandRemoveAffiliateRoute = require("./routers/dashboard/boxremoveaffiliate");
+const BrandAddAffiliateRoute = require("./routers/dashboard/boxaddaffiliate");
+const GetboxlistRoute = require("./routers/dashboard/boxgetlist");
 
-const CampaigncreateRoute = require("./routers/brand/campaigncreate")
-const CampaigngetlistRoute = require("./routers/getcampaignlist")
-const CampaignupdateRoute = require("./routers/campaignupdate")
+const CampaigncreateRoute = require("./routers/dashboard/campaigncreate");
+const CampaigngetlistRoute = require("./routers/dashboard/campaigngetlist");
+const CampaignupdateRoute = require("./routers/dashboard/campaignupdate");
 
-const UpdateprofileRoute = require("./routers/updateprofile");
-const GetprofileRoute = require("./routers/getprofile");
-const GetaffiliatelistRoute = require("./routers/getaffiliatelist");
+const UpdateprofileRoute = require("./routers/dashboard/profileupdate");
+const GetprofileRoute = require("./routers/dashboard/profilegetdetails");
+const GetaffiliatelistRoute = require("./routers/dashboard/profilegetlist");
 
-const AffiliateLoginRoute = require("./routers/affiliate/affiliatelogin");
-const AffiliateregisterRoute = require("./routers/affiliate/affiliateregister");
-const BrandloginRoute = require("./routers/brand/brandlogin");
-const BrandregisterRoute = require("./routers/brand/brandregister");
-const LogoutRoute = require("./routers/logout");
+const AffiliateLoginRoute = require("./routers/accounts/affiliatelogin");
+const AffiliateregisterRoute = require("./routers/accounts/affiliateregister");
+const BrandloginRoute = require("./routers/accounts/brandlogin");
+const BrandregisterRoute = require("./routers/accounts/brandregister");
+const LogoutRoute = require("./routers/accounts/logout");
 
 mongoose.connect(
   process.env.MONGO_DB_URI,
@@ -62,9 +62,9 @@ app.use("/api/brand/box/removeaffiliate", BrandRemoveAffiliateRoute);
 app.use("/api/brand/box/addaffiliate", BrandAddAffiliateRoute);
 app.use("/api/brand/box/getlist", GetboxlistRoute);
 
-app.use("/api/brand/campaign/create", CampaigncreateRoute)
-app.use("/api/campaign/getlist", CampaigngetlistRoute)
-app.use("/api/campaign/update", CampaignupdateRoute)
+app.use("/api/brand/campaign/create", CampaigncreateRoute);
+app.use("/api/campaign/getlist", CampaigngetlistRoute);
+app.use("/api/campaign/update", CampaignupdateRoute);
 
 app.use("/api/updateprofile", UpdateprofileRoute);
 app.use("/api/getprofile", GetprofileRoute);

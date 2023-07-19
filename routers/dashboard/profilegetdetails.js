@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const affiliateProfile = require("../models/affiliateProfile");
-const brandProfile = require("../models/brandProfile");
+const affiliateProfile = require("../../models/affiliateProfile");
+const brandProfile = require("../../models/brandProfile");
 
 router.get("/", async (req, res) => {
   let data = {};

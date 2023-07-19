@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const affiliateProfile = require("../models/affiliateProfile");
+const affiliateProfile = require("../../models/affiliateProfile");
 
 router.post("/", async (req, res) => {
   const data = await affiliateProfile.findOne({ _id: req.body._id });
@@ -19,8 +19,8 @@ router.post("/", async (req, res) => {
   } else {
     res.status(200);
     res.json({
-      err: "Failed to log out!"
-    })
+      err: "Failed to log out!",
+    });
   }
 });
 

@@ -4,8 +4,8 @@ const fs = require("fs");
 const util = require("util");
 
 // Models
-const affiliateProfile = require("../models/affiliateProfile");
-const brandProfile = require("../models/brandProfile");
+const affiliateProfile = require("../../models/affiliateProfile");
+const brandProfile = require("../../models/brandProfile");
 
 // Inialization
 const router = express.Router();
@@ -13,7 +13,7 @@ const unlinkFile = util.promisify(fs.unlink);
 const upload = multer({ dest: "uploads/" });
 
 // Modules
-const { uploadFile } = require("../modules/s3");
+const { uploadFile } = require("../../modules/s3");
 
 router.post("/", upload.single("profile_picture"), async (req, res) => {
   let result = "";

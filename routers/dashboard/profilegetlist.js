@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const affiliateProfile = require("../models/affiliateProfile");
+const affiliateProfile = require("../../models/affiliateProfile");
 
 router.get("/", async (req, res) => {
   const data = await affiliateProfile.find(
