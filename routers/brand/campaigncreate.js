@@ -53,7 +53,9 @@ router.post("/", async (req, res) => {
         brand_owner_id: req.body.brand_owner_id,
         campaign_id: Data3._id.toString(),
         affiliate_id: affiliateId,
-        status: "Invited",
+        platform: "Tiktok",
+        relationship_status: "Invited",
+        campaign_status: "Ready To Start",
         invite_date: Date.now(),
       });
       await newaffiliateCampaignMap.save()

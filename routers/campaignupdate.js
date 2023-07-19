@@ -1,20 +1,37 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const affiliateProfile = require("../models/affiliateProfile");
 const campaigns = require("../models/campaigns");
+const affiliateCampaignMap = require("../models/affiliateCampaignMap");
 
 router.post("/", async (req, res) => {
   const ObjectId = new mongoose.Types.ObjectId(req.body.campaign_id);
   const data = await campaigns.findOne({ _id: ObjectId });
-  if (data) {
-    data.status = req.body.status;
-    data.start_date = Date.now();
-    await data.save();
-    res.status(200);
-    res.json({
-      msg: "Successfully updated campaign",
-    });
+  switch (req.body.change_to_status) {
+    case "Active":
+      if (data) {
+        data.status = req.body.change_to_status;
+        data.start_date = Date.now();
+        await data.save();
+        const usersLinkedCampaign = await affiliateCampaignMap.find({
+          campaign_id: req.body.campaign_id,
+        });
+        usersLinkedCampaign.map(async (data) => {
+          data.campaign_status = req.body.change_to_status;
+          await data.save();
+        });
+        res.status(200);
+        res.json({
+          msg: "Successfully updated campaign",
+        });
+      }
+      break;
+    default:
+      res.status(200);
+      res.json({
+        err: "Failed to update campaign",
+      });
+      break;
   }
 });
 

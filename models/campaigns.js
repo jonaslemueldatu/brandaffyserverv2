@@ -18,6 +18,7 @@ const campaignsSchema = new Schema({
     default: Date.now,
   },
   start_date: Date,
+  cancelled_date: Date,
   end_date: Date,
   affiliate_list_accepted: Array,
   affiliate_list_invited: Array,

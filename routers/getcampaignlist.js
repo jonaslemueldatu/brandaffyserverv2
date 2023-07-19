@@ -5,8 +5,7 @@ const affiliateProfile = require("../models/affiliateProfile");
 const campaigns = require("../models/campaigns");
 
 router.get("/", async (req, res) => {
-  const params = req.query;
-  const data = await campaigns.find(params);
+  const data = await campaigns.find(req.query);
   if (data) {
     res.status(200);
     res.json({
