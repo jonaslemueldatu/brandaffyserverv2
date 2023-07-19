@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const brandBox = require("../../models/brandBox");
 
 router.post("/", async (req, res) => {
-  const objectId = new mongoose.Types.ObjectId(req.body.id);
+  const objectId = new mongoose.Types.ObjectId(req.body.box_id);
   const data = await brandBox.deleteOne({ _id: objectId });
   res.status(200);
   res.json({

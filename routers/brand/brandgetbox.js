@@ -4,15 +4,14 @@ const mongoose = require("mongoose");
 const brandBox = require("../../models/brandBox");
 
 router.get("/", async (req, res) => {
-  const objectId = new mongoose.Types.ObjectId(req.query.id);
-  console.log(objectId)
+  const objectId = new mongoose.Types.ObjectId(req.query.box_id);
   const data = await brandBox.findOne({
     _id: objectId,
   });
   if (data) {
     res.status(200);
     res.json({
-      msg: "Successfully pulled list of affiliates",
+      msg: "Successfully got Box info",
       box_details: data,
     });
   } else {

@@ -5,7 +5,7 @@ const brandBox = require("../../models/brandBox");
 
 router.post("/", async (req, res) => {
   const data = await brandBox.findOne({
-    box_label: req.body.label,
+    box_label: req.body.box_label,
     brand_owner_id: req.body.brand_owner_id,
   });
   if (data) {
@@ -15,8 +15,8 @@ router.post("/", async (req, res) => {
     });
   } else {
     const newbrandBox = new brandBox({
-      box_label: req.body.label,
-      box_description: req.body.description,
+      box_label: req.body.box_label,
+      box_description: req.body.box_description,
       brand_owner_id: req.body.brand_owner_id,
     });
 

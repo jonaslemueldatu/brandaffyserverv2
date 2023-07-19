@@ -1,15 +1,18 @@
 const express = require("express");
 const multer = require("multer");
-const mongoose = require("mongoose");
-const affiliateProfile = require("../models/affiliateProfile");
-const brandProfile = require("../models/brandProfile");
 const fs = require("fs");
 const util = require("util");
-const router = express.Router();
 
+// Models
+const affiliateProfile = require("../models/affiliateProfile");
+const brandProfile = require("../models/brandProfile");
+
+// Inialization
+const router = express.Router();
 const unlinkFile = util.promisify(fs.unlink);
 const upload = multer({ dest: "uploads/" });
 
+// Modules
 const { uploadFile } = require("../modules/s3");
 
 router.post("/", upload.single("profile_picture"), async (req, res) => {
@@ -98,7 +101,6 @@ router.post("/", upload.single("profile_picture"), async (req, res) => {
         res.status(200),
           res.json({
             msg: "Update successful",
-            user_profile: data,
           });
       } else if (data && req.body.type === "contact") {
         if (data.phone_number != req.body.phone_number) {
@@ -114,7 +116,6 @@ router.post("/", upload.single("profile_picture"), async (req, res) => {
         res.status(200),
           res.json({
             msg: "Update successful",
-            user_profile: data,
           });
       } else {
         res.status(200);

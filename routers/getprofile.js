@@ -6,9 +6,10 @@ const brandProfile = require("../models/brandProfile");
 
 router.get("/", async (req, res) => {
   let data = {};
-  switch (req.query.type) {
+  switch (req.query.option_type) {
     case "Affiliate":
-      data = await affiliateProfile.findOne({ _id: req.query.id });
+      delete req.query.option_type;
+      data = await affiliateProfile.findOne(req.query);
       if (data) {
         data.birthdate
           ? (date = new Date(data.birthdate).toLocaleDateString("en-CA"))
@@ -37,7 +38,8 @@ router.get("/", async (req, res) => {
       }
       break;
     case "Brand":
-      data = await brandProfile.findOne({ _id: req.query.id });
+      delete req.query.option_type;
+      data = await brandProfile.findOne(req.query);
       if (data) {
         res.status(200),
           res.json({
@@ -54,6 +56,11 @@ router.get("/", async (req, res) => {
             },
             msg: "Profile found!",
           });
+      } else {
+        res.status(200);
+        res.json({
+          err: "Profile cannot be found!",
+        });
       }
       break;
     default:
