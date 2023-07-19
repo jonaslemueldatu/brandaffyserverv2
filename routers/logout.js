@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
       res.json({
         msg: "Successfully Logged-out!",
       });
-  } else if (data && req.body.viewer_user_type == "brand") {
+  } else if (req.body.viewer_user_type == "brand") {
     res.status(200);
     res.json({
       msg: "Successfully logged-out!",

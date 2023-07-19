@@ -8,7 +8,6 @@ router.get("/", async (req, res) => {
     "_id profile_picture first_name last_name email gender age province logged_in province"
   );
   if (data) {
-    console.log(data)
     res.status(200);
     res.json({
       msg: "Successfully pulled list of affiliates",
