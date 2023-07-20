@@ -44,6 +44,24 @@ router.post("/", async (req, res) => {
         });
       }
       break;
+      case "Ended":
+        if (data) {
+          data.status = req.body.change_to_status;
+          data.end_date = Date.now();
+          await data.save();
+          const usersLinkedCampaign = await affiliateCampaignMap.find({
+            campaign_id: req.body.campaign_id,
+          });
+          usersLinkedCampaign.map(async (data) => {
+            data.campaign_status = req.body.change_to_status;
+            await data.save();
+          });
+          res.status(200);
+          res.json({
+            msg: "Successfully updated campaign",
+          });
+        }
+        break;
     default:
       res.status(200);
       res.json({
