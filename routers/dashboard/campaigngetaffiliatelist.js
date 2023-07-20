@@ -6,7 +6,6 @@ const campaigns = require("../../models/campaigns");
 const affiliateCampaignMap = require("../../models/affiliateCampaignMap");
 
 router.get("/", async (req, res) => {
-  console.log(req.query);
   const data = await affiliateCampaignMap.aggregate([
     {
       $match: { affiliate_id: { $eq: req.query.affiliate_id } },
@@ -32,6 +31,7 @@ router.get("/", async (req, res) => {
     },
   ]);
   if (data) {
+    console.log(data)
     res.status(200);
     res.json({
       msg: "Successfully pulled list of campaigns",

@@ -100,14 +100,57 @@ router.post("/", async (req, res) => {
             campaign_id: data._id.toString(),
             affiliate_id: req.body.invited_influencer,
             platform: "Tiktok",
-            relationship_status: "Invited",
-            campaign_status: req.body.change_to_status,
+            relationship_status: req.body.change_to_status,
             invite_date: Date.now(),
           });
           await newaffiliateCampaignMap.save();
           res.status(200);
           res.json({
             msg: "Successfully invited influencer to campaign",
+          });
+        }
+      }
+      break;
+    case "Accepted":
+      if (data) {
+        data.affiliate_list_invited.splice(
+          data.affiliate_list_invited.indexOf(req.body.accepted_affiliate, 1)
+        );
+        data.affiliate_list_accepted.push(req.body.accepted_affiliate);
+        await data.save();
+        const data2 = await affiliateCampaignMap.findOne({
+          campaign_id: req.body.campaign_id,
+          affiliate_id: req.body.accepted_affiliate,
+        });
+        if (data2) {
+          data2.accept_date = Date.now();
+          data2.relationship_status = "Accepted";
+          await data2.save();
+          res.status(200);
+          res.json({
+            msg: "Successfully Accepted the invitation",
+          });
+        }
+      }
+      break;
+    case "Declined":
+      if (data) {
+        data.affiliate_list_invited.splice(
+          data.affiliate_list_invited.indexOf(req.body.declined_affiliate, 1)
+        );
+        data.affiliate_list_declined.push(req.body.declined_affiliate);
+        await data.save();
+        const data2 = await affiliateCampaignMap.findOne({
+          campaign_id: req.body.campaign_id,
+          affiliate_id: req.body.declined_affiliate,
+        });
+        if (data2) {
+          data2.declined_date = Date.now();
+          data2.relationship_status = "Declined";
+          await data2.save();
+          res.status(200);
+          res.json({
+            msg: "Successfully Declined the invitation",
           });
         }
       }
