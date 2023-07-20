@@ -15,6 +15,7 @@ const GetboxlistRoute = require("./routers/dashboard/boxgetlist");
 
 const CampaigncreateRoute = require("./routers/dashboard/campaigncreate");
 const CampaigngetlistRoute = require("./routers/dashboard/campaigngetlist");
+const CampaigngetlistaggregateRoute = require("./routers/dashboard/campaigngetaffiliatelist");
 const CampaignupdateRoute = require("./routers/dashboard/campaignupdate");
 
 const UpdateprofileRoute = require("./routers/dashboard/profileupdate");
@@ -64,6 +65,7 @@ app.use("/api/box/getlist", GetboxlistRoute);
 
 app.use("/api/campaign/create", CampaigncreateRoute);
 app.use("/api/campaign/getlist", CampaigngetlistRoute);
+app.use("/api/campaign/getlistaggregate", CampaigngetlistaggregateRoute);
 app.use("/api/campaign/update", CampaignupdateRoute);
 
 app.use("/api/profile/update", UpdateprofileRoute);
