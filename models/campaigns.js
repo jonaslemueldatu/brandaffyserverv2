@@ -22,7 +22,8 @@ const campaignsSchema = new Schema({
   end_date: Date,
   affiliate_list_accepted: Array,
   affiliate_list_invited: Array,
-  affiliate_list_requested: Array,
+  affiliate_list_declined: Array,
+  affiliate_list_applied: Array,
 });
 
 const campaigns = mongoose.model("campaigns", campaignsSchema);
