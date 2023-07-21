@@ -31,7 +31,6 @@ router.get("/", async (req, res) => {
     },
   ]);
   if (data) {
-    console.log(data)
     res.status(200);
     res.json({
       msg: "Successfully pulled list of campaigns",

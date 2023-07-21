@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const campaigns = require("../../models/campaigns");
 const brandBox = require("../../models/brandBox");
+const brandProfile = require("../../models/brandProfile");
 const affiliateCampaignMap = require("../../models/affiliateCampaignMap");
 
 router.post("/", async (req, res) => {
@@ -26,9 +27,13 @@ router.post("/", async (req, res) => {
       list = Data.affiliate_list;
     }
   }
-
+  const objectId2 = new mongoose.Types.ObjectId(req.body.brand_owner_id);
+  const Data = await brandProfile.findOne({
+    _id: objectId2,
+  });
   const newcampaigns = new campaigns({
     brand_owner_id: req.body.brand_owner_id,
+    brand_name: Data.brand_name,
     platform: "Tiktok",
     status: "Ready to Start",
     campaign_name: req.body.campaign_name,
@@ -58,7 +63,7 @@ router.post("/", async (req, res) => {
         campaign_status: "Ready To Start",
         invite_date: Date.now(),
       });
-      await newaffiliateCampaignMap.save()
+      await newaffiliateCampaignMap.save();
     });
   }
 

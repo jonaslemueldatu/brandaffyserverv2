@@ -13,8 +13,29 @@ router.post("/", async (req, res) => {
         data.status = req.body.change_to_status;
         data.start_date = Date.now();
         await data.save();
+        data.affiliate_list_declined = data.affiliate_list_declined.concat(
+          data.affiliate_list_invited
+        );
+        data.affiliate_list_declined = data.affiliate_list_declined.concat(
+          data.affiliate_list_applied
+        );
+        data.affiliate_list_invited = [];
+        data.affilaite_list_applied = [];
+        await data.save();
+        await affiliateCampaignMap.deleteMany({
+          $and: [
+            { campaign_id: req.body.campaign_id },
+            {
+              $or: [
+                { relationship_status: "Invited" },
+                { relationship_status: "Applied" },
+              ],
+            },
+          ],
+        });
         const usersLinkedCampaign = await affiliateCampaignMap.find({
           campaign_id: req.body.campaign_id,
+          relationship_status: "Accepted",
         });
         usersLinkedCampaign.map(async (data) => {
           data.campaign_status = req.body.change_to_status;
@@ -31,12 +52,17 @@ router.post("/", async (req, res) => {
         data.status = req.body.change_to_status;
         data.cancelled_date = Date.now();
         await data.save();
-        const usersLinkedCampaign = await affiliateCampaignMap.find({
-          campaign_id: req.body.campaign_id,
-        });
-        usersLinkedCampaign.map(async (data) => {
-          data.campaign_status = req.body.change_to_status;
-          await data.save();
+        await affiliateCampaignMap.deleteMany({
+          $and: [
+            { campaign_id: req.body.campaign_id },
+            {
+              $or: [
+                { relationship_status: "Invited" },
+                { relationship_status: "Applied" },
+                { relationship_status: "Accepted" },
+              ],
+            },
+          ],
         });
         res.status(200);
         res.json({
@@ -140,19 +166,14 @@ router.post("/", async (req, res) => {
         );
         data.affiliate_list_declined.push(req.body.declined_affiliate);
         await data.save();
-        const data2 = await affiliateCampaignMap.findOne({
+        await affiliateCampaignMap.deleteOne({
           campaign_id: req.body.campaign_id,
           affiliate_id: req.body.declined_affiliate,
         });
-        if (data2) {
-          data2.declined_date = Date.now();
-          data2.relationship_status = "Declined";
-          await data2.save();
-          res.status(200);
-          res.json({
-            msg: "Successfully Declined the invitation",
-          });
-        }
+        res.status(200);
+        res.json({
+          msg: "Successfully Declined the invitation",
+        });
       }
       break;
     default:
