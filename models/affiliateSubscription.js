@@ -17,7 +17,7 @@ const affiliateSubscriptionSchema = new Schema({
     },
     influencer_active_campaigns: {
            type: Number,
-           default: 3
+           default: 5
     },
     influencer_current_active_campaigns: {
         type: Number,
