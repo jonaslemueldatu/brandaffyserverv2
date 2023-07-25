@@ -27,6 +27,7 @@ router.get("/", async (req, res) => {
               phone_number: data.phone_number,
               country: data.country,
               province: data.province,
+              social_tiktok: data.social_tiktok,
             },
             msg: "Profile found!",
           });

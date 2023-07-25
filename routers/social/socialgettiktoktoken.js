@@ -1,20 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
+const mongoose = require("mongoose")
 const querystring = require("querystring");
 const socialTiktokCredentials = require("../../models/socialTiktokCredentials");
+const affiliateProfile = require("../../models/affiliateProfile")
 
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body.code)
-    console.log(req.body.user_id)
-    const { code } = req.body.code;
-    const decode = decodeURI(code);
     const tokenEndpoint = "https://open.tiktokapis.com/v2/oauth/token/";
     const params = {
       client_key: "aw1wx231u89y4wq3",
       client_secret: "220b6aa55075674137b7a4ab24d9932b",
-      code: decode,
+      code: req.body.code,
       grant_type: "authorization_code",
       redirect_uri: "https://www.brandaffy.com/dashboard/profile/",
     };
@@ -37,6 +35,12 @@ router.post("/", async (req, res) => {
       });
 
       await newSocialTiktokCredentials.save();
+      const ObjectId = new mongoose.Types.ObjectId(req.body.user_id);
+      const profile = await affiliateProfile.findOne({ _id: ObjectId });
+      if (profile) {
+        profile.social_tiktok = true;
+        await profile.save();
+      }
     }
 
     console.log(result.data);
