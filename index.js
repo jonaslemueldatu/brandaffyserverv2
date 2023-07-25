@@ -28,6 +28,8 @@ const BrandloginRoute = require("./routers/accounts/brandlogin");
 const BrandregisterRoute = require("./routers/accounts/brandregister");
 const LogoutRoute = require("./routers/accounts/logout");
 
+const GettiktoktokenRoute = require("./routers/social/socialgettiktoktoken")
+
 mongoose.connect(
   process.env.MONGO_DB_URI,
   { useNewUrlParser: true },
@@ -77,6 +79,8 @@ app.use("/api/affiliate/register", AffiliateregisterRoute);
 app.use("/api/brand/login", BrandloginRoute);
 app.use("/api/brand/register", BrandregisterRoute);
 app.use("/api/logout", LogoutRoute);
+
+app.use("/api/tiktokaccesstoken", GettiktoktokenRoute )
 
 app.listen(process.env.SERVER_PORT, () =>
   console.log(`App is now running at ${process.env.SERVER_PORT}!`)

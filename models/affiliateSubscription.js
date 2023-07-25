@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 
-let dt = new Date();
-dt.setMonth(dt.getMonth() + 1)
+let now = new Date();
+let dt = new Date(now);
+dt.setDate(now.getDate() + 30);
 
 const Schema = mongoose.Schema;
 const affiliateSubscriptionSchema = new Schema({
