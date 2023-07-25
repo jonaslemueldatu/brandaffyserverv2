@@ -37,11 +37,15 @@ const affiliateProfileSchema = new Schema({
     type: Boolean,
     default: true,
   },
-  total_followers: Number,
-  total_views: Number,
-  total_posts: Number,
-  total_following: Number,
-  account_handle: String,
+  avatar_url_100: String,
+  display_name: String,
+  bio_description: String,
+  profile_deep_link: String,
+  is_verified: Boolean,
+  follower_count: Number,
+  following_count: Number,
+  likes_count: Number,
+  video_count: Number,
 });
 
 const affiliateProfile = mongoose.model(

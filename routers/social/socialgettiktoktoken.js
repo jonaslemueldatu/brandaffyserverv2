@@ -42,8 +42,6 @@ router.post("/", async (req, res) => {
         await profile.save();
       }
     }
-
-    console.log(result.data);
     res.status(200);
     res.json({
       msg: "Successfully connected Tiktok account",
