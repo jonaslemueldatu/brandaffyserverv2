@@ -19,6 +19,7 @@ const socialTiktokCredentialsSchema = new Schema({
     type: Date,
     default: dtYear,
   },
+  access_last_refresh: Date,
   linked_date: {
     type: Date,
     default: Date.now,
