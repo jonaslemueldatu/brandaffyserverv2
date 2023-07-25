@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const brandBox = require("../../models/brandBox");
 
 router.post("/", async (req, res) => {
+  console.log("Here!")
   const objectId = new mongoose.Types.ObjectId(req.body.box_Id);
   const data = await brandBox.findOne({ _id: objectId });
   await data.affiliate_list.splice(
