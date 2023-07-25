@@ -19,6 +19,7 @@ const CampaigngetlistRoute = require("./routers/dashboard/campaigngetlist");
 const CampaigngetlistaggregateRoute = require("./routers/dashboard/campaigngetaffiliatelist");
 const CampaignupdateRoute = require("./routers/dashboard/campaignupdate");
 const CampaigngetdetailsRoute = require("./routers/dashboard/campaigngetdetails");
+const CampaignlinkvideoRoute = require("./routers/dashboard/campaignlinkvideo")
 
 const UpdateprofileRoute = require("./routers/dashboard/profileupdate");
 const GetprofileRoute = require("./routers/dashboard/profilegetdetails");
@@ -74,6 +75,8 @@ app.use("/api/campaign/getlist", CampaigngetlistRoute);
 app.use("/api/campaign/getlistaggregate", CampaigngetlistaggregateRoute);
 app.use("/api/campaign/update", CampaignupdateRoute);
 app.use("/api/campaign/getdetails", CampaigngetdetailsRoute);
+app.use("/api/campaign/linkvideo", CampaignlinkvideoRoute);
+
 
 app.use("/api/profile/update", UpdateprofileRoute);
 app.use("/api/profile/get", GetprofileRoute);

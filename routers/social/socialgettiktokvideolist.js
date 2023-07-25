@@ -14,12 +14,8 @@ router.get("/", async (req, res) => {
     if (!credentials) {
       return;
     }
-
     const vidlistEndpoint =
-      "https://open.tiktokapis.com/v2/video/list/?fields=cover_image_url,id,title";
-
-    console.log(credentials);
-    console.log(`Bearer ${credentials.access_token}`);
+      "https://open.tiktokapis.com/v2/video/list/?fields=id,title";
     const result = await axios.post(
       vidlistEndpoint,
       {
@@ -32,8 +28,18 @@ router.get("/", async (req, res) => {
         },
       }
     );
-    console.log(result);
-    console.log(result.data);
+    if (result) {
+      res.status(200);
+      res.json({
+        msg: "Successfully acquired video list",
+        video_list: result.data.data,
+      });
+    } else {
+      res.status(200);
+      res.json({
+        err: "Failed to get public video list",
+      });
+    }
   } catch (error) {
     console.error("Error during callback:", error.message);
   }

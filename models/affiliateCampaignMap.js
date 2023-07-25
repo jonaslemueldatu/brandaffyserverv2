@@ -11,6 +11,7 @@ const affiliateCampaignMapSchema = new Schema({
   accept_date: Date,
   applied_date: Date,
   declined_date: Date,
+  video_list: Array,
 });
 
 const affiliateCampaignMap = mongoose.model(
