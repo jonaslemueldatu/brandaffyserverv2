@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 const socialTiktokCredentials = require("../../models/socialTiktokCredentials");
 const campaignTiktokVideoMap = require("../../models/campaignTiktokVideoMap");
+const affiliateCampaignMap = require("../../models/affiliateCampaignMap");
 
 router.post("/", async (req, res) => {
   try {
@@ -67,6 +68,16 @@ router.post("/", async (req, res) => {
       });
 
       await newCampaignTiktokVideoMap.save();
+
+      const affiliateCampaign = await affiliateCampaignMap.findOne({
+        campaign_id: req.body.campaign_id,
+        affiliate_id: req.body.affiliate_id,
+      });
+
+      if (affiliateCampaign) {
+        affiliateCampaign.video_list.push(req.body.video_id);
+        await affiliateCampaign.save();
+      }
       res.status(200);
       res.json({
         msg: "Successfully linked tiktok video",
