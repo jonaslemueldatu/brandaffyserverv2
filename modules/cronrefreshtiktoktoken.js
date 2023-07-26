@@ -4,7 +4,7 @@ const socialTiktokCredentials = require("../models/socialTiktokCredentials");
 const querystring = require("querystring");
 
 const refreshTiktokToken = new CronJob("0 * * * *", async () => {
-  console.log("cron is executing now. timestamp: ", new Date());
+  console.log("Fetching nearly expired tokens, timestamp: ", new Date());
 
   let now = new Date();
   let dt = new Date(now);
@@ -53,7 +53,6 @@ const refreshTiktokToken = new CronJob("0 * * * *", async () => {
             },
           }
         );
-        console.log(result.data);
         const updateData = await socialTiktokCredentials.findOne({
           _id: token._id,
         });

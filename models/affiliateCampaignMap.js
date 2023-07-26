@@ -6,7 +6,10 @@ const affiliateCampaignMapSchema = new Schema({
   affiliate_id: String,
   relationship_status: String,
   platform: String,
-  campaign_status: String,
+  campaign_status: {
+    type: String,
+    default: "Ready to Start",
+  },
   invite_date: Date,
   accept_date: Date,
   applied_date: Date,

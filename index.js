@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const { refreshTiktokToken } = require("./modules/cronrefreshtiktoktoken");
+const { updateTiktokVideos } = require("./modules/cronupdateactivecampaign");
 
 const app = express();
 
@@ -101,3 +102,4 @@ app.listen(process.env.SERVER_PORT, () =>
 
 //Cron Jobs
 refreshTiktokToken.start();
+updateTiktokVideos.start();
