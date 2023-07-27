@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 let now = new Date();
 let dt = new Date(now);
-dt.setDate(now.getDate() + 30);
+dt.setDate(now.getDate() + 60);
 
 const Schema = mongoose.Schema;
 const affiliateSubscriptionSchema = new Schema({
@@ -10,7 +10,7 @@ const affiliateSubscriptionSchema = new Schema({
     profile_id: String,
     plan: {
         type: String,
-        default: "Free"
+        default: "Starter"
     },
     plan_active: {
         type: Boolean,
