@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const campaigns = require("../../models/campaigns");
 const affiliateCampaignMap = require("../../models/affiliateCampaignMap");
+const affiliateSubscription = require("../../models/affiliateSubscription");
 
 router.post("/", async (req, res) => {
   const ObjectId = new mongoose.Types.ObjectId(req.body.campaign_id);
@@ -64,6 +65,14 @@ router.post("/", async (req, res) => {
             },
           ],
         });
+        await affiliateSubscription.updateMany(
+          { profile_id: { $in: data.affiliate_list_accepted } },
+          {
+            $inc: {
+              influencer_current_active_campaigns: -1,
+            },
+          }
+        );
         res.status(200);
         res.json({
           msg: "Successfully updated campaign",
@@ -82,6 +91,15 @@ router.post("/", async (req, res) => {
           data.campaign_status = req.body.change_to_status;
           await data.save();
         });
+        await affiliateSubscription.updateMany(
+          { profile_id: { $in: data.affiliate_list_accepted } },
+          {
+            $inc: {
+              influencer_current_active_campaigns: -1,
+            },
+          }
+        );
+
         res.status(200);
         res.json({
           msg: "Successfully updated campaign",
@@ -138,12 +156,34 @@ router.post("/", async (req, res) => {
       }
       break;
     case "Accepted":
+      const isLimit = await affiliateSubscription.findOne({
+        profile_id: req.body.accepted_affiliate,
+      });
+
+      if (
+        isLimit.influencer_current_active_campaigns >=
+        isLimit.influencer_active_campaigns
+      ) {
+        res.status(200);
+        res.json({
+          err: "Failed to accept campaign. Max accepted campaigns reached",
+        });
+        return;
+      }
+
       if (data) {
         data.affiliate_list_invited.splice(
           data.affiliate_list_invited.indexOf(req.body.accepted_affiliate, 1)
         );
         data.affiliate_list_accepted.push(req.body.accepted_affiliate);
         await data.save();
+
+        const subLimit = await affiliateSubscription.findOne({
+          profile_id: req.body.accepted_affiliate,
+        });
+        subLimit.influencer_current_active_campaigns++;
+        await subLimit.save();
+
         const data2 = await affiliateCampaignMap.findOne({
           campaign_id: req.body.campaign_id,
           affiliate_id: req.body.accepted_affiliate,

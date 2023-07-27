@@ -20,8 +20,13 @@ router.post("/", async (req, res) => {
     });
     await newbrandProfile.save();
 
+    const profile = await brandProfile.findOne({
+      email: req.body.email,
+    });
+
     const newbrandSubscription = new brandSubscription({
       email: req.body.email,
+      profile_id: profile._id.toString(),
     });
 
     await newbrandSubscription.save();

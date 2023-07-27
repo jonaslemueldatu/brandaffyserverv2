@@ -7,6 +7,7 @@ dt.setDate(now.getDate() + 30);
 const Schema = mongoose.Schema;
 const affiliateSubscriptionSchema = new Schema({
     email: String,
+    profile_id: String,
     plan: {
         type: String,
         default: "Free"

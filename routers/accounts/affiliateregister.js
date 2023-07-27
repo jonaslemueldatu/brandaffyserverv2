@@ -22,8 +22,13 @@ router.post("/", async (req, res) => {
 
     await newaffiliateProfile.save();
 
+    const profile = await affiliateProfile.findOne({
+      email: req.body.email,
+    });
+
     const newaffiliateSubscription = new affiliateSubscription({
       email: req.body.email,
+      profile_id: profile._id.toString(),
     });
 
     await newaffiliateSubscription.save();
