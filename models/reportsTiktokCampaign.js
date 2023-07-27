@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
+let dt = new Date();
+
 const reportsTiktokCampaignSchema = new Schema({
-  create_date: {
-    type: Date,
-    default: new Date()
-  },
+  create_date: Date,
   campaign_id: String,
   video_id: String,
   affiliate_id: String,

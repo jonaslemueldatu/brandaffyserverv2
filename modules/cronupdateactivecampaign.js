@@ -1,7 +1,7 @@
 const { CronJob } = require("cron");
 const affiliateCampaignMap = require("../models/affiliateCampaignMap");
 const campaignTiktokVideoMap = require("../models/campaignTiktokVideoMap");
-const reportsTiktokCampaign = require("../models/reportsTiktokCampaign")
+const reportsTiktokCampaign = require("../models/reportsTiktokCampaign");
 const axios = require("axios");
 
 const updateTiktokVideos = new CronJob("* * * * *", async () => {
@@ -94,6 +94,7 @@ const updateTiktokVideos = new CronJob("* * * * *", async () => {
                 videos.comment_count - campaignTiktok.comment_count,
               share_count_diff: videos.share_count - campaignTiktok.share_count,
               view_count_diff: videos.view_count - campaignTiktok.view_count,
+              create_date: new Date(),
             });
             await newReportsTiktokCampaign.save();
 

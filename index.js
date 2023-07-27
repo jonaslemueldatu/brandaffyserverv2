@@ -24,6 +24,8 @@ const CampaignlinkvideoRoute = require("./routers/dashboard/campaignlinkvideo");
 const CampaignunlinkvideoRoute = require("./routers/dashboard/campaignunlinkvideo");
 const CampaigngetvideolistRoute = require("./routers/dashboard/campaigngetvideolist");
 
+const CampaigngetreportRoute = require("./routers/dashboard/campaigngetreport")
+
 const UpdateprofileRoute = require("./routers/dashboard/profileupdate");
 const GetprofileRoute = require("./routers/dashboard/profilegetdetails");
 const GetaffiliatelistRoute = require("./routers/dashboard/profilegetlist");
@@ -81,6 +83,8 @@ app.use("/api/campaign/getdetails", CampaigngetdetailsRoute);
 app.use("/api/campaign/linkvideo", CampaignlinkvideoRoute);
 app.use("/api/campaign/unlinkvideo", CampaignunlinkvideoRoute);
 app.use("/api/campaign/getvideolist", CampaigngetvideolistRoute);
+
+app.use("/api/campaign/getreport", CampaigngetreportRoute);
 
 app.use("/api/profile/update", UpdateprofileRoute);
 app.use("/api/profile/get", GetprofileRoute);

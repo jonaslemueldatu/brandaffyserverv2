@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
+let dt = new Date();
 const campaignTiktokVideoMapSchema = new Schema({
   brand_owner_id: String,
   campaign_id: String,
@@ -17,7 +19,7 @@ const campaignTiktokVideoMapSchema = new Schema({
   create_time: Date,
   linked_time: {
     type: Date,
-    default: new Date(),
+    default: dt,
   },
 });
 
