@@ -4,7 +4,7 @@ const campaignTiktokVideoMap = require("../models/campaignTiktokVideoMap");
 const reportsTiktokCampaign = require("../models/reportsTiktokCampaign");
 const axios = require("axios");
 
-const updateTiktokVideos = new CronJob("* * * * *", async () => {
+const updateTiktokVideos = new CronJob("0 * * * *", async () => {
   console.log("Updating active Video listing, timestamp: ", new Date());
 
   const data = await affiliateCampaignMap.aggregate([

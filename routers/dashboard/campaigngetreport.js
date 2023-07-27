@@ -9,14 +9,14 @@ router.get("/", async (req, res) => {
       params = [
         {
           $match: {
-            campaign_id: "64c01434c30d039a01e28087",
+            campaign_id: req.query.campaign_id,
           },
         },
         {
           $addFields: {
             date: {
               $dateToString: {
-                format: "%m/%d, %H am",
+                format: "%Y-%m-%d",
                 date: "$create_date",
               },
             },
@@ -29,25 +29,39 @@ router.get("/", async (req, res) => {
         },
         {
           $group: {
-            _id: "$date",
+            _id: {
+              date: "$date",
+              uniqueId: "$video_id",
+            },
             document: {
-              $last: "$$ROOT",
+              $first: "$$ROOT",
             },
           },
         },
         {
-          $replaceRoot: {
-            newRoot: "$document",
+          $group: {
+            _id: "$_id.date",
+            views: {
+              $sum: "$document.view_count",
+            },
+            likes: {
+              $sum: "$document.like_count",
+            },
+            comments: {
+              $sum: "$document.comment_count",
+            },
+            shares: {
+              $sum: "$document.share_count",
+            },
           },
         },
         {
-          $project: {
-            date: 1,
-            like_count: 1,
-            comment_count: 1,
-            share_count: 1,
-            view_count: 1,
+          $sort: {
+            _id: -1,
           },
+        },
+        {
+          $limit: 15,
         },
       ];
       break;
