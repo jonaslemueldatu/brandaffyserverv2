@@ -36,6 +36,10 @@ const brandSubscriptionSchema = new Schema({
     type: Date,
     default: dt,
   },
+  charge_amount: {
+    type: Number,
+    default: 149900,
+  },
 });
 
 const brandSubscription = mongoose.model(

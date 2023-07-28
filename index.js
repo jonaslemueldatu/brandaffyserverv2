@@ -24,7 +24,7 @@ const CampaignlinkvideoRoute = require("./routers/dashboard/campaignlinkvideo");
 const CampaignunlinkvideoRoute = require("./routers/dashboard/campaignunlinkvideo");
 const CampaigngetvideolistRoute = require("./routers/dashboard/campaigngetvideolist");
 
-const CampaigngetreportRoute = require("./routers/dashboard/campaigngetreport")
+const CampaigngetreportRoute = require("./routers/dashboard/campaigngetreport");
 
 const UpdateprofileRoute = require("./routers/dashboard/profileupdate");
 const GetprofileRoute = require("./routers/dashboard/profilegetdetails");
@@ -39,6 +39,8 @@ const LogoutRoute = require("./routers/accounts/logout");
 const GettiktoktokenRoute = require("./routers/social/socialgettiktoktoken");
 const GettiktokprofileRoute = require("./routers/social/socialgettiktokdata");
 const GettiktokvideolistRoute = require("./routers/social/socialgettiktokvideolist");
+
+const SubscriptiongetdetailsRouter = require("./routers/payment/subscriptiongetdetails");
 
 mongoose.connect(
   process.env.MONGO_DB_URI,
@@ -99,6 +101,8 @@ app.use("/api/logout", LogoutRoute);
 app.use("/api/tiktokaccesstoken", GettiktoktokenRoute);
 app.use("/api/tiktok/profile", GettiktokprofileRoute);
 app.use("/api/tiktok/getvideolist", GettiktokvideolistRoute);
+
+app.use("/api/subscription/getdetails", SubscriptiongetdetailsRouter);
 
 app.listen(process.env.SERVER_PORT, () =>
   console.log(`App is now running at ${process.env.SERVER_PORT}!`)
