@@ -3,11 +3,24 @@ const express = require("express");
 const router = express.Router();
 const brandProfile = require("../../models/brandProfile");
 const jwt = require("jsonwebtoken");
+const brandSubscription = require("../../models/brandSubscription");
 
 router.post("/", async (req, res) => {
   const data = await brandProfile.findOne({ email: req.body.email });
   if (data) {
     if (data.password == req.body.password) {
+      const planActive = await brandSubscription.findOne(
+        {
+          email: req.body.email,
+        },
+        "plan_active expirationDate"
+      );
+
+      if (planActive.expirationDate <= new Date()) {
+        planActive.plan_active = false;
+        await planActive.save();
+      }
+      console.log(planActive);
       const token = await jwt.sign(
         { email: data.email },
         process.env.JSON_WEB_TOKEN_KEY,
@@ -23,6 +36,7 @@ router.post("/", async (req, res) => {
             id: data._id,
             email: data.email,
             user_type: data.user_type,
+            plan_active: planActive.plan_active,
           },
         });
     } else {
