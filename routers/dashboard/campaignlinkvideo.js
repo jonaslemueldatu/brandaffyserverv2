@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
 
     const credentials = await socialTiktokCredentials.findOne(
       {
-        user_id: req.body.affiliate_id,
+        user_id: req.body.creator_id,
       },
       "access_token"
     );
@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
         brand_owner_id: req.body.brand_owner_id,
         campaign_id: req.body.campaign_id,
         video_id: req.body.video_id,
-        affiliate_id: req.body.affiliate_id,
+        creator_id: req.body.creator_id,
         share_url: result.data.data.videos[0].share_url,
         video_description: result.data.data.videos[0].video_description,
         duration: result.data.data.videos[0].duration,
@@ -71,7 +71,7 @@ router.post("/", async (req, res) => {
 
       const creatorCampaign = await creatorCampaignMap.findOne({
         campaign_id: req.body.campaign_id,
-        affiliate_id: req.body.affiliate_id,
+        creator_id: req.body.creator_id,
       });
 
       if (creatorCampaign) {

@@ -7,14 +7,14 @@ router.get("/", async (req, res) => {
   if (data.length !== 0) {
     res.status(200);
     res.json({
-      msg: "Successfully pulled list of affiliates",
+      msg: "Successfully pulled list of creators",
       brandbox_list: data,
     });
   } else {
     res.status(200);
     res.json({
-      err: "No Boxes created for this user"
-    })
+      err: "No Boxes created for this user",
+    });
   }
 });
 

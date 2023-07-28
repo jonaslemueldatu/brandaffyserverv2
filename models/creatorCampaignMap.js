@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const creatorCampaignMapSchema = new Schema({
   brand_owner_id: String,
   campaign_id: String,
-  affiliate_id: String,
+  creator_id: String,
   relationship_status: String,
   platform: String,
   campaign_status: {

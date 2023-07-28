@@ -10,8 +10,8 @@ router.get("/", async (req, res) => {
   if (data) {
     res.status(200);
     res.json({
-      msg: "Successfully pulled list of affiliates",
-      affiliate_list: data,
+      msg: "Successfully pulled list of creators",
+      creator_list: data,
     });
   }
 });

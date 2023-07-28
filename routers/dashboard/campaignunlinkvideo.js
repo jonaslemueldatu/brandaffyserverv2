@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
 
     const creatorCampaign = await creatorCampaignMap.findOne({
       campaign_id: req.body.campaign_id,
-      affiliate_id: req.body.affiliate_id,
+      creator_id: req.body.creator_id,
     });
     if (creatorCampaign) {
       await creatorCampaign.video_list.splice(

@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
       req.query.brand_profile_id
     );
 
-    //Can be Brand or Affiliate
+    //Can be Brand or Creator
     switch (req.query.user_type) {
       case "Brand":
         const brandSubs = await brandSubscription.findOne({

@@ -4,11 +4,11 @@ const mongoose = require("mongoose");
 const brandBox = require("../../models/brandBox");
 
 router.post("/", async (req, res) => {
-  console.log("Here!")
+  console.log("Here!");
   const objectId = new mongoose.Types.ObjectId(req.body.box_Id);
   const data = await brandBox.findOne({ _id: objectId });
-  await data.affiliate_list.splice(
-    data.affiliate_list.indexOf(req.body.affiliate_to_remove),
+  await data.creator_list.splice(
+    data.creator_list.indexOf(req.body.creator_to_remove),
     1
   );
   await data.save();

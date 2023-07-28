@@ -20,7 +20,7 @@ router.post("/", upload.single("profile_picture"), async (req, res) => {
   if (req.file) {
     const fileFolder =
       req.body.user_type === "Creator"
-        ? "ugc_affiliate_profilepictures"
+        ? "ugc_creator_profilepictures"
         : "ugc_brand_profilepictures";
     const file = req.file;
     req.file.filename = req.body.id.toString();
@@ -30,7 +30,7 @@ router.post("/", upload.single("profile_picture"), async (req, res) => {
   let data = {};
   switch (req.body.user_type) {
     case "Creator":
-      data = await creatorProfileindOne({ _id: req.body.id });
+      data = await creatorProfile.findOne({ _id: req.body.id });
       if (data && req.body.type === "profile") {
         if (data.profile_picture.includes("placeholder") && req.file) {
           data.profile_picture = result.Location;

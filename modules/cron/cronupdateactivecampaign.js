@@ -13,7 +13,7 @@ const updateTiktokVideos = new CronJob("0 * * * *", async () => {
     },
     {
       $project: {
-        affiliate_id: 1,
+        creator_id: 1,
         campaign_id: 1,
         video_list: 1,
       },
@@ -36,7 +36,7 @@ const updateTiktokVideos = new CronJob("0 * * * *", async () => {
       $lookup: {
         from: "socialtiktokcredentials",
         let: {
-          searchId: "$affiliate_id",
+          searchId: "$creator_id",
         },
         pipeline: [
           {

@@ -28,13 +28,13 @@ router.post("/", async (req, res) => {
         data.status = req.body.change_to_status;
         data.start_date = Date.now();
         await data.save();
-        data.affiliate_list_declined = data.affiliate_list_declined.concat(
-          data.affiliate_list_invited
+        data.creator_list_declined = data.creator_list_declined.concat(
+          data.creator_list_invited
         );
-        data.affiliate_list_declined = data.affiliate_list_declined.concat(
-          data.affiliate_list_applied
+        data.creator_list_declined = data.creator_list_declined.concat(
+          data.creator_list_applied
         );
-        data.affiliate_list_invited = [];
+        data.creator_list_invited = [];
         data.affilaite_list_applied = [];
         await data.save();
         await creatorCampaignMap.deleteMany({
@@ -117,41 +117,39 @@ router.post("/", async (req, res) => {
       break;
     case "Invited":
       if (data) {
-        if (
-          data.affiliate_list_invited.indexOf(req.body.invited_influencer) >= 0
-        ) {
+        if (data.creator_list_invited.indexOf(req.body.invited_creator) >= 0) {
           res.status(200);
           res.json({
             err: "User is already invited on this campaign!",
           });
         } else if (
-          data.affiliate_list_accepted.indexOf(req.body.invited_influencer) >= 0
+          data.creator_list_accepted.indexOf(req.body.invited_creator) >= 0
         ) {
           res.status(200);
           res.json({
             err: "User has already accepted this campaign!",
           });
         } else if (
-          data.affiliate_list_declined.indexOf(req.body.invited_influencer) >= 0
+          data.creator_list_declined.indexOf(req.body.invited_creator) >= 0
         ) {
           res.status(200);
           res.json({
             err: "User has previously declined this campaign!",
           });
         } else if (
-          data.affiliate_list_applied.indexOf(req.body.invited_influencer) >= 0
+          data.creator_list_applied.indexOf(req.body.invited_creator) >= 0
         ) {
           res.status(200);
           res.json({
             err: "User has a pending application to this campaign!",
           });
         } else {
-          data.affiliate_list_invited.push(req.body.invited_influencer);
+          data.creator_list_invited.push(req.body.invited_creator);
           await data.save();
           let newcreatorCampaignMap = new creatorCampaignMap({
             brand_owner_id: req.body.brand_owner_id,
             campaign_id: data._id.toString(),
-            affiliate_id: req.body.invited_influencer,
+            creator_id: req.body.invited_creator,
             platform: "Tiktok",
             relationship_status: req.body.change_to_status,
             invite_date: Date.now(),
@@ -159,26 +157,26 @@ router.post("/", async (req, res) => {
           await newcreatorCampaignMap.save();
           res.status(200);
           res.json({
-            msg: "Successfully invited influencer to campaign",
+            msg: "Successfully invited creator to campaign",
           });
         }
       }
       break;
     case "Accepted":
       const isLimit = await creatorSubscription.findOne({
-        profile_id: req.body.accepted_affiliate,
+        profile_id: req.body.accepted_creator,
       });
 
       if (data) {
-        data.affiliate_list_invited.splice(
-          data.affiliate_list_invited.indexOf(req.body.accepted_affiliate, 1)
+        data.creator_list_invited.splice(
+          data.creator_list_invited.indexOf(req.body.accepted_creator, 1)
         );
-        data.affiliate_list_accepted.push(req.body.accepted_affiliate);
+        data.creator_list_accepted.push(req.body.accepted_creator);
         await data.save();
 
         const data2 = await creatorCampaignMap.findOne({
           campaign_id: req.body.campaign_id,
-          affiliate_id: req.body.accepted_affiliate,
+          creator_id: req.body.accepted_creator,
         });
         if (data2) {
           data2.accept_date = Date.now();
@@ -193,14 +191,14 @@ router.post("/", async (req, res) => {
       break;
     case "Declined":
       if (data) {
-        data.affiliate_list_invited.splice(
-          data.affiliate_list_invited.indexOf(req.body.declined_affiliate, 1)
+        data.creator_list_invited.splice(
+          data.creator_list_invited.indexOf(req.body.declined_creator, 1)
         );
-        data.affiliate_list_declined.push(req.body.declined_affiliate);
+        data.creator_list_declined.push(req.body.declined_creator);
         await data.save();
         await creatorCampaignMap.deleteOne({
           campaign_id: req.body.campaign_id,
-          affiliate_id: req.body.declined_affiliate,
+          creator_id: req.body.declined_creator,
         });
         res.status(200);
         res.json({

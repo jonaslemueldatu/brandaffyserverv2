@@ -21,10 +21,10 @@ const campaignsSchema = new Schema({
   start_date: Date,
   cancelled_date: Date,
   end_date: Date,
-  affiliate_list_accepted: Array,
-  affiliate_list_invited: Array,
-  affiliate_list_declined: Array,
-  affiliate_list_applied: Array,
+  creator_list_accepted: Array,
+  creator_list_invited: Array,
+  creator_list_declined: Array,
+  creator_list_applied: Array,
 });
 
 const campaigns = mongoose.model("campaigns", campaignsSchema);

@@ -6,7 +6,7 @@ const campaignTiktokVideoMapSchema = new Schema({
   brand_owner_id: String,
   campaign_id: String,
   video_id: String,
-  affiliate_id: String,
+  creator_id: String,
   share_url: String,
   video_description: String,
   duration: String,

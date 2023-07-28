@@ -8,7 +8,7 @@ const creatorCampaignMap = require("../../models/creatorCampaignMap");
 router.get("/", async (req, res) => {
   const data = await creatorCampaignMap.aggregate([
     {
-      $match: { affiliate_id: { $eq: req.query.affiliate_id } },
+      $match: { creator_id: { $eq: req.query.creator_id } },
     },
     {
       $match: { relationship_status: { $eq: req.query.relationship_status } },

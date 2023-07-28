@@ -7,7 +7,7 @@ const reportsTiktokCampaignSchema = new Schema({
   create_date: Date,
   campaign_id: String,
   video_id: String,
-  affiliate_id: String,
+  creator_id: String,
   like_count: Number,
   comment_count: Number,
   share_count: Number,

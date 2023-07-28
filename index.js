@@ -13,13 +13,13 @@ const app = express();
 const BrandCreateBoxRoute = require("./routers/dashboard/boxcreate");
 const BrandDeleteBoxRoute = require("./routers/dashboard/boxdelete");
 const GetboxRoute = require("./routers/dashboard/boxgetdetails");
-const BrandRemoveAffiliateRoute = require("./routers/dashboard/boxremoveaffiliate");
-const BrandAddAffiliateRoute = require("./routers/dashboard/boxaddaffiliate");
+const BrandRemoveCreatorRoute = require("./routers/dashboard/boxremovecreator");
+const BrandAddCreatorRoute = require("./routers/dashboard/boxaddcreator");
 const GetboxlistRoute = require("./routers/dashboard/boxgetlist");
 
 const CampaigncreateRoute = require("./routers/dashboard/campaigncreate");
 const CampaigngetlistRoute = require("./routers/dashboard/campaigngetlist");
-const CampaigngetlistaggregateRoute = require("./routers/dashboard/campaigngetaffiliatelist");
+const CampaigngetlistaggregateRoute = require("./routers/dashboard/campaigngetcreatorlist");
 const CampaignupdateRoute = require("./routers/dashboard/campaignupdate");
 const CampaigngetdetailsRoute = require("./routers/dashboard/campaigngetdetails");
 const CampaignlinkvideoRoute = require("./routers/dashboard/campaignlinkvideo");
@@ -30,10 +30,10 @@ const CampaigngetreportRoute = require("./routers/dashboard/campaigngetreport");
 
 const UpdateprofileRoute = require("./routers/dashboard/profileupdate");
 const GetprofileRoute = require("./routers/dashboard/profilegetdetails");
-const GetaffiliatelistRoute = require("./routers/dashboard/profilegetlist");
+const GetcreatorlistRoute = require("./routers/dashboard/profilegetlist");
 
-const AffiliateLoginRoute = require("./routers/accounts/creatorlogin");
-const AffiliateregisterRoute = require("./routers/accounts/creatorregister");
+const CreatorLoginRoute = require("./routers/accounts/creatorlogin");
+const CreatorregisterRoute = require("./routers/accounts/creatorregister");
 const BrandloginRoute = require("./routers/accounts/brandlogin");
 const BrandregisterRoute = require("./routers/accounts/brandregister");
 const LogoutRoute = require("./routers/accounts/logout");
@@ -75,8 +75,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api/box/create", BrandCreateBoxRoute);
 app.use("/api/box/delete", BrandDeleteBoxRoute);
 app.use("/api/box/getbox", GetboxRoute);
-app.use("/api/box/removeaffiliate", BrandRemoveAffiliateRoute);
-app.use("/api/box/addaffiliate", BrandAddAffiliateRoute);
+app.use("/api/box/removecreator", BrandRemoveCreatorRoute);
+app.use("/api/box/addcreator", BrandAddCreatorRoute);
 app.use("/api/box/getlist", GetboxlistRoute);
 
 app.use("/api/campaign/create", CampaigncreateRoute);
@@ -92,10 +92,10 @@ app.use("/api/campaign/getreport", CampaigngetreportRoute);
 
 app.use("/api/profile/update", UpdateprofileRoute);
 app.use("/api/profile/get", GetprofileRoute);
-app.use("/api/profile/getlist", GetaffiliatelistRoute);
+app.use("/api/profile/getlist", GetcreatorlistRoute);
 
-app.use("/api/creator/login", AffiliateLoginRoute);
-app.use("/api/creator/register", AffiliateregisterRoute);
+app.use("/api/creator/login", CreatorLoginRoute);
+app.use("/api/creator/register", CreatorregisterRoute);
 app.use("/api/brand/login", BrandloginRoute);
 app.use("/api/brand/register", BrandregisterRoute);
 app.use("/api/logout", LogoutRoute);

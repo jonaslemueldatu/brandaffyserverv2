@@ -7,7 +7,7 @@ const campaignTiktokVideoMap = require("../../models/campaignTiktokVideoMap");
 router.get("/", async (req, res) => {
   try {
     const user_type =
-      req.query.user_type === "Brand" ? "brand_owner_id" : "affiliate_id";
+      req.query.user_type === "Brand" ? "brand_owner_id" : "creator_id";
     const data = await campaignTiktokVideoMap.find({
       campaign_id: req.query.campaign_id,
       [user_type]: req.query.user_id,

@@ -23,8 +23,8 @@ router.post("/", async (req, res) => {
   if (req.body.invitation_box) {
     const objectId = new mongoose.Types.ObjectId(req.body.invitation_box);
     const Data = await brandBox.findOne({ _id: objectId });
-    if (Data.affiliate_list.length > 0) {
-      list = Data.affiliate_list;
+    if (Data.creator_list.length > 0) {
+      list = Data.creator_list;
     }
   }
   const objectId2 = new mongoose.Types.ObjectId(req.body.brand_owner_id);
@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
     campaign_target_market: req.body.campaign_market,
     campaign_proposed_payment: req.body.payment_type,
     campaign_terms: req.body.terms_conditions,
-    affiliate_list_invited: list,
+    creator_list_invited: list,
   });
   await newcampaigns.save();
   const Data3 = await campaigns.findOne(
@@ -53,11 +53,11 @@ router.post("/", async (req, res) => {
     "_id"
   );
   if (Data3 && list.length > 0) {
-    list.map(async (affiliateId) => {
+    list.map(async (creatorId) => {
       let newcreatorCampaignMap = new creatorCampaignMap({
         brand_owner_id: req.body.brand_owner_id,
         campaign_id: Data3._id.toString(),
-        affiliate_id: affiliateId,
+        creator_id: creatorId,
         platform: "Tiktok",
         relationship_status: "Invited",
         campaign_status: "Ready To Start",
