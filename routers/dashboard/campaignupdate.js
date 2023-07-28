@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const campaigns = require("../../models/campaigns");
 const affiliateCampaignMap = require("../../models/affiliateCampaignMap");
 const affiliateSubscription = require("../../models/affiliateSubscription");
+const brandSubscription = require("../../models/brandSubscription");
 
 router.post("/", async (req, res) => {
   const ObjectId = new mongoose.Types.ObjectId(req.body.campaign_id);
@@ -11,6 +12,19 @@ router.post("/", async (req, res) => {
   switch (req.body.change_to_status) {
     case "Active":
       if (data) {
+        const brandSubs = await brandSubscription.findOne({
+          profile_id: req.body.brand_owner_id,
+        });
+        if (
+          brandSubs.brand_current_active_campaigns >=
+          brandSubs.brand_active_campaigns
+        ) {
+          res.status(200);
+          res.json({
+            err: "Plan limit reached! Upgrade plan or wait for campaigns to end",
+          });
+          return;
+        }
         data.status = req.body.change_to_status;
         data.start_date = Date.now();
         await data.save();
@@ -42,6 +56,12 @@ router.post("/", async (req, res) => {
           data.campaign_status = req.body.change_to_status;
           await data.save();
         });
+        await brandSubscription.updateOne(
+          {
+            profile_id: req.body.brand_owner_id,
+          },
+          { $inc: { brand_current_active_campaigns: 1 } }
+        );
         res.status(200);
         res.json({
           msg: "Successfully updated campaign",
@@ -65,14 +85,6 @@ router.post("/", async (req, res) => {
             },
           ],
         });
-        await affiliateSubscription.updateMany(
-          { profile_id: { $in: data.affiliate_list_accepted } },
-          {
-            $inc: {
-              influencer_current_active_campaigns: -1,
-            },
-          }
-        );
         res.status(200);
         res.json({
           msg: "Successfully updated campaign",
@@ -91,15 +103,12 @@ router.post("/", async (req, res) => {
           data.campaign_status = req.body.change_to_status;
           await data.save();
         });
-        await affiliateSubscription.updateMany(
-          { profile_id: { $in: data.affiliate_list_accepted } },
+        await brandSubscription.updateOne(
           {
-            $inc: {
-              influencer_current_active_campaigns: -1,
-            },
-          }
+            profile_id: req.body.brand_owner_id,
+          },
+          { $inc: { brand_current_active_campaigns: -1 } }
         );
-
         res.status(200);
         res.json({
           msg: "Successfully updated campaign",
@@ -160,29 +169,12 @@ router.post("/", async (req, res) => {
         profile_id: req.body.accepted_affiliate,
       });
 
-      if (
-        isLimit.influencer_current_active_campaigns >=
-        isLimit.influencer_active_campaigns
-      ) {
-        res.status(200);
-        res.json({
-          err: "Failed to accept campaign. Max accepted campaigns reached",
-        });
-        return;
-      }
-
       if (data) {
         data.affiliate_list_invited.splice(
           data.affiliate_list_invited.indexOf(req.body.accepted_affiliate, 1)
         );
         data.affiliate_list_accepted.push(req.body.accepted_affiliate);
         await data.save();
-
-        const subLimit = await affiliateSubscription.findOne({
-          profile_id: req.body.accepted_affiliate,
-        });
-        subLimit.influencer_current_active_campaigns++;
-        await subLimit.save();
 
         const data2 = await affiliateCampaignMap.findOne({
           campaign_id: req.body.campaign_id,

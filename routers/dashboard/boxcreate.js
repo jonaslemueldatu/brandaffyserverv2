@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const brandBox = require("../../models/brandBox");
+const brandSubscription = require("../../models/brandSubscription");
 
 router.post("/", async (req, res) => {
   const data = await brandBox.findOne({
@@ -21,6 +22,12 @@ router.post("/", async (req, res) => {
     });
 
     await newbrandBox.save();
+    await brandSubscription.updateOne(
+      {
+        profile_id: req.body.brand_owner_id,
+      },
+      { $inc: { brand_current_active_boxes: 1 } }
+    );
     res.status(200);
     res.json({
       msg: "Box successfully created!",
