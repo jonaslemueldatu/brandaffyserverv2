@@ -1,7 +1,7 @@
 const { CronJob } = require("cron");
-const affiliateCampaignMap = require("../models/affiliateCampaignMap");
-const campaignTiktokVideoMap = require("../models/campaignTiktokVideoMap");
-const reportsTiktokCampaign = require("../models/reportsTiktokCampaign");
+const affiliateCampaignMap = require("../../models/affiliateCampaignMap");
+const campaignTiktokVideoMap = require("../../models/campaignTiktokVideoMap");
+const reportsTiktokCampaign = require("../../models/reportsTiktokCampaign");
 const axios = require("axios");
 
 const updateTiktokVideos = new CronJob("0 * * * *", async () => {

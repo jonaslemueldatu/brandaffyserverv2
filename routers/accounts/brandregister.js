@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const brandSubscription = require("../../models/brandSubscription");
 const jwt = require("jsonwebtoken");
 
+const { createXenditCustomer } = require("../../modules/xendit/customercreate");
+
 router.post("/", async (req, res) => {
   const data = await brandProfile.findOne({ email: req.body.email });
   if (data) {
@@ -30,6 +32,13 @@ router.post("/", async (req, res) => {
     });
 
     await newbrandSubscription.save();
+
+    const newXenditCustomer = await createXenditCustomer(
+      req.body.user_type,
+      req.body.email,
+      req.body.brand_name,
+      profile._id.toString()
+    );
 
     const brandData = await brandProfile.findOne(
       { email: req.body.email },

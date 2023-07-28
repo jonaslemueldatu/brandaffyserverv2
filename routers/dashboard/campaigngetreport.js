@@ -74,7 +74,7 @@ router.get("/", async (req, res) => {
     if (data) {
       res.status(200);
       res.json({
-        msg: "Successfully generater report",
+        msg: "Successfully generated report",
         report_array: data,
       });
     } else {

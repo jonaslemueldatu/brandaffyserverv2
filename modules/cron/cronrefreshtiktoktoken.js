@@ -1,6 +1,6 @@
 const { CronJob } = require("cron");
 const axios = require("axios");
-const socialTiktokCredentials = require("../models/socialTiktokCredentials");
+const socialTiktokCredentials = require("../../models/socialTiktokCredentials");
 const querystring = require("querystring");
 
 const refreshTiktokToken = new CronJob("0 * * * *", async () => {
@@ -38,8 +38,8 @@ const refreshTiktokToken = new CronJob("0 * * * *", async () => {
         console.log("starting");
         const tokenEndpoint = "https://open.tiktokapis.com/v2/oauth/token/";
         const params = {
-          client_key: "aw1wx231u89y4wq3",
-          client_secret: "220b6aa55075674137b7a4ab24d9932b",
+          client_key: process.env.TTK_CLIENT_ID,
+          client_secret: process.env.TTK_CLIENT_SECRET,
           grant_type: "refresh_token",
           refresh_token: token.refreshToken,
         };

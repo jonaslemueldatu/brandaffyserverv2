@@ -3,8 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const { refreshTiktokToken } = require("./modules/cronrefreshtiktoktoken");
-const { updateTiktokVideos } = require("./modules/cronupdateactivecampaign");
+const { refreshTiktokToken } = require("./modules/cron/cronrefreshtiktoktoken");
+const { updateTiktokVideos } = require("./modules/cron/cronupdateactivecampaign");
 
 const app = express();
 
