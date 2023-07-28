@@ -16,8 +16,8 @@ router.post("/", async (req, res) => {
           profile_id: req.body.brand_owner_id,
         });
         if (
-          brandSubs.brand_current_active_campaigns >=
-          brandSubs.brand_active_campaigns
+          brandSubs.plan_current_active_campaigns >=
+          brandSubs.plan_active_campaigns
         ) {
           res.status(200);
           res.json({
@@ -60,7 +60,7 @@ router.post("/", async (req, res) => {
           {
             profile_id: req.body.brand_owner_id,
           },
-          { $inc: { brand_current_active_campaigns: 1 } }
+          { $inc: { plan_current_active_campaigns: 1 } }
         );
         res.status(200);
         res.json({
@@ -107,7 +107,7 @@ router.post("/", async (req, res) => {
           {
             profile_id: req.body.brand_owner_id,
           },
-          { $inc: { brand_current_active_campaigns: -1 } }
+          { $inc: { plan_current_active_campaigns: -1 } }
         );
         res.status(200);
         res.json({
