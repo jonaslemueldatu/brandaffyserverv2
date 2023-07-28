@@ -6,7 +6,6 @@ const axios = require("axios");
 
 const updateTiktokVideos = new CronJob("0 * * * *", async () => {
   console.log("Updating active Video listing, timestamp: ", new Date());
-
   const data = await creatorCampaignMap.aggregate([
     {
       $match: { campaign_status: "Active" },

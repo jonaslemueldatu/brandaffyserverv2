@@ -6,8 +6,7 @@ const querystring = require("querystring");
 const refreshTiktokToken = new CronJob("0 * * * *", async () => {
   console.log("Fetching nearly expired tokens, timestamp: ", new Date());
 
-  let now = new Date();
-  let dt = new Date(now);
+  let dt = new Date();
 
   const tokensToRefresh = await socialTiktokCredentials.aggregate([
     {

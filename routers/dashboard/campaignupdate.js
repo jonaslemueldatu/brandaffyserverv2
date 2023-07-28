@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
     case "Active":
       if (data) {
         const brandSubs = await brandSubscription.findOne({
-          profile_id: req.body.brand_owner_id,
+          brand_profile_id: req.body.brand_owner_id,
         });
         if (
           brandSubs.plan_current_active_campaigns >=
@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
         });
         await brandSubscription.updateOne(
           {
-            profile_id: req.body.brand_owner_id,
+            brand_profile_id: req.body.brand_owner_id,
           },
           { $inc: { plan_current_active_campaigns: 1 } }
         );
@@ -105,7 +105,7 @@ router.post("/", async (req, res) => {
         });
         await brandSubscription.updateOne(
           {
-            profile_id: req.body.brand_owner_id,
+            brand_profile_id: req.body.brand_owner_id,
           },
           { $inc: { plan_current_active_campaigns: -1 } }
         );
@@ -164,7 +164,7 @@ router.post("/", async (req, res) => {
       break;
     case "Accepted":
       const isLimit = await creatorSubscription.findOne({
-        profile_id: req.body.accepted_creator,
+        creator_profile_id: req.body.accepted_creator,
       });
 
       if (data) {

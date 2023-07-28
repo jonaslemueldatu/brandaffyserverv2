@@ -7,7 +7,9 @@ const brandSubscription = require("../../models/brandSubscription");
 router.post("/", async (req, res) => {
   try {
     const objectId = new mongoose.Types.ObjectId(req.body.box_id);
+    //Delete box data entirely from collection
     await brandBox.deleteOne({ _id: objectId });
+    //Update brandSubscription limit for active boxes
     await brandSubscription.updateOne(
       {
         brand_profile_id: req.body.brand_owner,

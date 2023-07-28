@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 
-let now = new Date();
-let dt = new Date(now);
-let dtDay = dt.setDate(now.getDate() + 1);
-let dtYear = dt.setDate(now.getDate() + 365);
+let dt = new Date();
+let dtDay = dt.setDate(dt.getDate() + 1);
+let dtYear = dt.setDate(dt.getDate() + 365);
 
 const Schema = mongoose.Schema;
 const socialTiktokCredentialsSchema = new Schema({

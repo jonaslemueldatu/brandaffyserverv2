@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const brandBox = require("../../models/brandBox");
 
 router.get("/", async (req, res) => {
+  //Get box details
   const objectId = new mongoose.Types.ObjectId(req.query.box_id);
   const data = await brandBox.findOne({
     _id: objectId,

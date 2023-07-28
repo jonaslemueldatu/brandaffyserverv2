@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
         },
         {
           $sort: {
-            create_date: 1,
+            create_date: -1,
           },
         },
         {

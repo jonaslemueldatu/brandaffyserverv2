@@ -4,6 +4,7 @@ const brandBox = require("../../models/brandBox");
 
 router.get("/", async (req, res) => {
   try {
+    //Get box list
     const data = await brandBox.find(req.query);
     if (data.length !== 0) {
       res.status(200);
