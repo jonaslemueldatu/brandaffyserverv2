@@ -1,14 +1,10 @@
 const mongoose = require("mongoose");
 
-let now = new Date();
-let dt = new Date(now);
-dt.setDate(now.getDate() + 30);
-
 const Schema = mongoose.Schema;
-const affiliateProfileSchema = new Schema({
+const creatorProfileSchema = new Schema({
   user_type: {
     type: String,
-    default: "Affiliate",
+    default: "Creator",
   },
   profile_picture: {
     type: String,
@@ -29,7 +25,7 @@ const affiliateProfileSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  registerDate: {
+  register_date: {
     type: Date,
     default: Date.now,
   },
@@ -37,20 +33,17 @@ const affiliateProfileSchema = new Schema({
     type: Boolean,
     default: true,
   },
-  avatar_url_100: String,
-  display_name: String,
-  bio_description: String,
-  profile_deep_link: String,
-  is_verified: Boolean,
-  follower_count: Number,
-  following_count: Number,
-  likes_count: Number,
-  video_count: Number,
+  social_tiktok_avatar_url_100: String,
+  social_tiktok_display_name: String,
+  social_tiktok_bio_description: String,
+  social_tiktok_profile_deep_link: String,
+  social_tiktok_is_verified: Boolean,
+  social_tiktok_follower_count: Number,
+  social_tiktok_following_count: Number,
+  social_tiktok_likes_count: Number,
+  social_tiktok_video_count: Number,
 });
 
-const affiliateProfile = mongoose.model(
-  "affiliateProfile",
-  affiliateProfileSchema
-);
+const creatorProfile = mongoose.model("creatorProfile", creatorProfileSchema);
 
-module.exports = affiliateProfile;
+module.exports = creatorProfile;

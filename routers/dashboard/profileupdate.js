@@ -4,7 +4,7 @@ const fs = require("fs");
 const util = require("util");
 
 // Models
-const affiliateProfile = require("../../models/affiliateProfile");
+const creatorProfile = require("../../models/creatorProfile");
 const brandProfile = require("../../models/brandProfile");
 
 // Inialization
@@ -19,7 +19,7 @@ router.post("/", upload.single("profile_picture"), async (req, res) => {
   let result = "";
   if (req.file) {
     const fileFolder =
-      req.body.user_type === "Affiliate"
+      req.body.user_type === "Creator"
         ? "ugc_affiliate_profilepictures"
         : "ugc_brand_profilepictures";
     const file = req.file;
@@ -29,8 +29,8 @@ router.post("/", upload.single("profile_picture"), async (req, res) => {
   }
   let data = {};
   switch (req.body.user_type) {
-    case "Affiliate":
-      data = await affiliateProfile.findOne({ _id: req.body.id });
+    case "Creator":
+      data = await creatorProfileindOne({ _id: req.body.id });
       if (data && req.body.type === "profile") {
         if (data.profile_picture.includes("placeholder") && req.file) {
           data.profile_picture = result.Location;

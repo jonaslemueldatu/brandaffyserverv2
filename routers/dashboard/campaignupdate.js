@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const campaigns = require("../../models/campaigns");
-const affiliateCampaignMap = require("../../models/affiliateCampaignMap");
-const affiliateSubscription = require("../../models/affiliateSubscription");
+const creatorCampaignMap = require("../../models/creatorCampaignMap");
+const creatorSubscription = require("../../models/creatorSubscription");
 const brandSubscription = require("../../models/brandSubscription");
 
 router.post("/", async (req, res) => {
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
         data.affiliate_list_invited = [];
         data.affilaite_list_applied = [];
         await data.save();
-        await affiliateCampaignMap.deleteMany({
+        await creatorCampaignMap.deleteMany({
           $and: [
             { campaign_id: req.body.campaign_id },
             {
@@ -48,7 +48,7 @@ router.post("/", async (req, res) => {
             },
           ],
         });
-        const usersLinkedCampaign = await affiliateCampaignMap.find({
+        const usersLinkedCampaign = await creatorCampaignMap.find({
           campaign_id: req.body.campaign_id,
           relationship_status: "Accepted",
         });
@@ -73,7 +73,7 @@ router.post("/", async (req, res) => {
         data.status = req.body.change_to_status;
         data.cancelled_date = Date.now();
         await data.save();
-        await affiliateCampaignMap.deleteMany({
+        await creatorCampaignMap.deleteMany({
           $and: [
             { campaign_id: req.body.campaign_id },
             {
@@ -96,7 +96,7 @@ router.post("/", async (req, res) => {
         data.status = req.body.change_to_status;
         data.end_date = Date.now();
         await data.save();
-        const usersLinkedCampaign = await affiliateCampaignMap.find({
+        const usersLinkedCampaign = await creatorCampaignMap.find({
           campaign_id: req.body.campaign_id,
         });
         usersLinkedCampaign.map(async (data) => {
@@ -148,7 +148,7 @@ router.post("/", async (req, res) => {
         } else {
           data.affiliate_list_invited.push(req.body.invited_influencer);
           await data.save();
-          let newaffiliateCampaignMap = new affiliateCampaignMap({
+          let newcreatorCampaignMap = new creatorCampaignMap({
             brand_owner_id: req.body.brand_owner_id,
             campaign_id: data._id.toString(),
             affiliate_id: req.body.invited_influencer,
@@ -156,7 +156,7 @@ router.post("/", async (req, res) => {
             relationship_status: req.body.change_to_status,
             invite_date: Date.now(),
           });
-          await newaffiliateCampaignMap.save();
+          await newcreatorCampaignMap.save();
           res.status(200);
           res.json({
             msg: "Successfully invited influencer to campaign",
@@ -165,7 +165,7 @@ router.post("/", async (req, res) => {
       }
       break;
     case "Accepted":
-      const isLimit = await affiliateSubscription.findOne({
+      const isLimit = await creatorSubscription.findOne({
         profile_id: req.body.accepted_affiliate,
       });
 
@@ -176,7 +176,7 @@ router.post("/", async (req, res) => {
         data.affiliate_list_accepted.push(req.body.accepted_affiliate);
         await data.save();
 
-        const data2 = await affiliateCampaignMap.findOne({
+        const data2 = await creatorCampaignMap.findOne({
           campaign_id: req.body.campaign_id,
           affiliate_id: req.body.accepted_affiliate,
         });
@@ -198,7 +198,7 @@ router.post("/", async (req, res) => {
         );
         data.affiliate_list_declined.push(req.body.declined_affiliate);
         await data.save();
-        await affiliateCampaignMap.deleteOne({
+        await creatorCampaignMap.deleteOne({
           campaign_id: req.body.campaign_id,
           affiliate_id: req.body.declined_affiliate,
         });

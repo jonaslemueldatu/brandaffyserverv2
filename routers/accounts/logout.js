@@ -1,26 +1,34 @@
 const express = require("express");
 const router = express.Router();
-const affiliateProfile = require("../../models/affiliateProfile");
+const mongoose = require("mongoose");
+
+//Model Imports
+const creatorProfile = require("../../models/creatorProfile");
 
 router.post("/", async (req, res) => {
-  const data = await affiliateProfile.findOne({ _id: req.body._id });
-  if (data && req.body.viewer_user_type == "affiliate") {
-    data.logged_in = false;
-    await data.save();
-    res.status(200),
+  try {
+    const ObjectId = new mongoose.Types.ObjectId(req.body._id);
+    const data = await creatorProfile.findOne({ _id: ObjectId });
+    if (data && req.body.viewer_user_type == "creator") {
+      data.logged_in = false;
+      await data.save();
+      res.status(200),
+        res.json({
+          msg: "Successfully Logged-out!",
+        });
+    } else if (req.body.viewer_user_type == "brand") {
+      res.status(200);
       res.json({
-        msg: "Successfully Logged-out!",
+        msg: "Successfully logged-out!",
       });
-  } else if (req.body.viewer_user_type == "brand") {
-    res.status(200);
-    res.json({
-      msg: "Successfully logged-out!",
-    });
-  } else {
-    res.status(200);
-    res.json({
-      err: "Failed to log out!",
-    });
+    } else {
+      res.status(200);
+      res.json({
+        err: "Failed to log out!",
+      });
+    }
+  } catch (error) {
+    console.log(`logout.js, ${error}`);
   }
 });
 

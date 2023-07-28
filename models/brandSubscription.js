@@ -1,45 +1,45 @@
 const mongoose = require("mongoose");
 
-let now = new Date();
-let dt = new Date(now);
-dt.setDate(now.getDate() + 30);
+let dt = new Date();
+dt.setDate(dt.getDate() + 30);
 
 const Schema = mongoose.Schema;
 const brandSubscriptionSchema = new Schema({
-  email: String,
-  profile_id: String,
-  plan: {
-    type: String,
-    default: "Starter",
-  },
-  brand_active_campaigns: {
-    type: Number,
-    default: 3,
-  },
+  brand_profile_id: String,
+  brand_email: String,
   plan_active: {
     type: Boolean,
     default: true,
   },
-  brand_active_boxes: {
+  plan_active_boxes: {
     type: Number,
     default: 5,
   },
-  brand_current_active_boxes: {
+  plan_active_campaigns: {
     type: Number,
-    default: 0,
+    default: 3,
   },
-  brand_current_active_campaigns: {
-    type: Number,
-    default: 0,
-  },
-  expirationDate: {
-    type: Date,
-    default: dt,
-  },
-  charge_amount: {
+  plan_charge_amount: {
     type: Number,
     default: 149900,
   },
+  plan_current_active_boxes: {
+    type: Number,
+    default: 0,
+  },
+  plan_current_active_campaigns: {
+    type: Number,
+    default: 0,
+  },
+  plan_expiration_date: {
+    type: Date,
+    default: dt,
+  },
+  plan_title: {
+    type: String,
+    default: "Starter",
+  },
+  xendit_referrence_id: String,
 });
 
 const brandSubscription = mongoose.model(

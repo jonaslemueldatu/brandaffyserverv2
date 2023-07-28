@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const affiliateCampaignMapSchema = new Schema({
+const creatorCampaignMapSchema = new Schema({
   brand_owner_id: String,
   campaign_id: String,
   affiliate_id: String,
@@ -17,9 +17,9 @@ const affiliateCampaignMapSchema = new Schema({
   video_list: Array,
 });
 
-const affiliateCampaignMap = mongoose.model(
-  "affiliateCampaignMap",
-  affiliateCampaignMapSchema
+const creatorCampaignMap = mongoose.model(
+  "creatorCampaignMap",
+  creatorCampaignMapSchema
 );
 
-module.exports = affiliateCampaignMap;
+module.exports = creatorCampaignMap;

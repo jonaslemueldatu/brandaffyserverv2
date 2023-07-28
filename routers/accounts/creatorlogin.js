@@ -2,8 +2,8 @@ const express = require("express");
 const dotEnv = require("dotenv").config();
 const router = express.Router();
 
-//Model Imports
-const brandProfile = require("../../models/brandProfile");
+//Models import
+const creatorProfile = require("../../models/creatorProfile");
 
 //Module Imports
 const { checkPlanActive } = require("../../modules/mongoose/checkplanactive");
@@ -11,14 +11,16 @@ const { createJWTToken } = require("../../modules/jwt/createtoken");
 
 router.post("/", async (req, res) => {
   try {
-    // Check if email exists
-    const profileExist = await brandProfile.findOne({ email: req.body.email });
+    //Check if account exists
+    const profileExist = await creatorProfile.findOne({
+      email: req.body.email,
+    });
     if (profileExist) {
-      // Check if password is correct
+      //Check if password is correct
       if (profileExist.password == req.body.password) {
         //Check if plan is still Active
         const isPlanActive = await checkPlanActive(
-          "Brand",
+          "Creator",
           profileExist._id.toString()
         );
 
@@ -53,7 +55,7 @@ router.post("/", async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(`brandlogin.js router, ${error}`);
+    console.log(`creatorlogin.js, ${error}`);
   }
 });
 

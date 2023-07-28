@@ -5,7 +5,7 @@ const axios = require("axios");
 const mongoose = require("mongoose");
 const querystring = require("querystring");
 const socialTiktokCredentials = require("../../models/socialTiktokCredentials");
-const affiliateProfile = require("../../models/affiliateProfile");
+const creatorProfile = require("../../models/creatorProfile");
 
 router.post("/", async (req, res) => {
   try {
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
 
       await newSocialTiktokCredentials.save();
       const ObjectId = new mongoose.Types.ObjectId(req.body.user_id);
-      const profile = await affiliateProfile.findOne({ _id: ObjectId });
+      const profile = await creatorProfile.findOne({ _id: ObjectId });
       if (profile) {
         profile.social_tiktok = true;
         await profile.save();

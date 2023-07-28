@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const affiliateProfile = require("../../models/affiliateProfile");
+const creatorProfile = require("../../models/creatorProfile");
 
 router.get("/", async (req, res) => {
-  const data = await affiliateProfile.find(
+  const data = await creatorProfile.find(
     req.query,
     "_id profile_picture first_name last_name email gender age province logged_in province social_tiktok"
   );

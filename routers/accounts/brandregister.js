@@ -1,68 +1,72 @@
 const express = require("express");
 const router = express.Router();
-const brandProfile = require("../../models/brandProfile");
-const mongoose = require("mongoose");
-const brandSubscription = require("../../models/brandSubscription");
-const jwt = require("jsonwebtoken");
 
+//ModelImports
+const brandProfile = require("../../models/brandProfile");
+const brandSubscription = require("../../models/brandSubscription");
+
+//Module Import
 const { createXenditCustomer } = require("../../modules/xendit/customercreate");
+const { createJWTToken } = require("../../modules/jwt/createtoken");
 
 router.post("/", async (req, res) => {
-  const data = await brandProfile.findOne({ email: req.body.email });
-  if (data) {
-    res.status(200);
-    res.json({
-      err: "Email already exists!",
-    });
-  } else {
+  try {
+    //Check for existing email
+    const existingEmail = await brandProfile.findOne({ email: req.body.email });
+    if (existingEmail) {
+      res.status(200);
+      res.json({
+        err: "Email already exists!",
+      });
+      return;
+    }
+
+    //Create new brand profile
     const newbrandProfile = new brandProfile({
+      business_name: req.body.business_name,
       brand_name: req.body.brand_name,
+      business_type: req.body.business_type,
       email: req.body.email,
       password: req.body.password,
     });
-    await newbrandProfile.save();
 
-    const profile = await brandProfile.findOne({
-      email: req.body.email,
-    });
-
-    const newbrandSubscription = new brandSubscription({
-      email: req.body.email,
-      profile_id: profile._id.toString(),
-    });
-
-    await newbrandSubscription.save();
-
+    // Create new Xendit Customer
     const newXenditCustomer = await createXenditCustomer(
       req.body.user_type,
       req.body.email,
-      req.body.brand_name,
-      profile._id.toString()
+      req.body.business_name,
+      newbrandProfile._id.toString(),
+      req.body.business_type
     );
 
-    const brandData = await brandProfile.findOne(
-      { email: req.body.email },
-      "_id"
-    );
-    if (brandData) {
-      const token = await jwt.sign(
-        { email: req.body.email },
-        process.env.JSON_WEB_TOKEN_KEY,
-        {
-          expiresIn: "1h",
-        }
-      );
-      res.status(200);
-      res.json({
-        msg: "Registration successful!",
-        token: token,
-        user_profile: {
-          id: brandData.id,
-          email: brandData.email,
-          user_type: "Brand",
-        },
-      });
-    }
+    //Create new brand subscription
+    const newbrandSubscription = new brandSubscription({
+      brand_email: req.body.email,
+      brand_profile_id: newbrandProfile._id.toString(),
+      xendit_referrence_id: newXenditCustomer.id,
+    });
+
+    //Create new jwt login token
+    const newJWTToken = await createJWTToken(newbrandProfile._id.toString);
+
+    //Save documents
+    await newbrandProfile.save();
+    await newbrandSubscription.save();
+
+    //Return back the data
+    res.status(200);
+    res.json({
+      msg: "Registration successful!",
+      token: newJWTToken,
+      user_profile: {
+        id: newbrandSubscription.brand_profile_id,
+        email: newbrandProfile.email,
+        user_type: "Brand",
+        is_plan_active: true,
+      },
+    });
+  } catch (error) {
+    console.log(`brandregister.js router, ${error}`);
   }
 });
 

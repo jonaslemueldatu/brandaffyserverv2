@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const affiliateProfile = require("../../models/affiliateProfile");
+const creatorProfile = require("../../models/creatorProfile");
 const campaigns = require("../../models/campaigns");
-const affiliateCampaignMap = require("../../models/affiliateCampaignMap");
+const creatorCampaignMap = require("../../models/creatorCampaignMap");
 
 router.get("/", async (req, res) => {
-  const data = await affiliateCampaignMap.aggregate([
+  const data = await creatorCampaignMap.aggregate([
     {
       $match: { affiliate_id: { $eq: req.query.affiliate_id } },
     },

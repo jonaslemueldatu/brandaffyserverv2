@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const campaignTiktokVideoMap = require("../../models/campaignTiktokVideoMap");
-const affiliateCampaignMap = require("../../models/affiliateCampaignMap");
+const creatorCampaignMap = require("../../models/creatorCampaignMap");
 
 router.post("/", async (req, res) => {
   try {
@@ -10,17 +10,17 @@ router.post("/", async (req, res) => {
       video_id: req.body.video_id,
     });
 
-    const affiliateCampaign = await affiliateCampaignMap.findOne({
+    const creatorCampaign = await creatorCampaignMap.findOne({
       campaign_id: req.body.campaign_id,
       affiliate_id: req.body.affiliate_id,
     });
-    if (affiliateCampaign) {
-      await affiliateCampaign.video_list.splice(
-        affiliateCampaign.video_list.indexOf(req.body.video_id),
+    if (creatorCampaign) {
+      await creatorCampaign.video_list.splice(
+        creatorCampaign.video_list.indexOf(req.body.video_id),
         1
       );
 
-      await affiliateCampaign.save();
+      await creatorCampaign.save();
 
       res.status(200);
       res.json({

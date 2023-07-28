@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const socialTiktokCredentials = require("../../models/socialTiktokCredentials");
-const affiliateProfile = require("../../models/affiliateProfile");
+const creatorProfile = require("../../models/creatorProfile");
 const mongoose = require("mongoose");
 
 router.post("/", async (req, res) => {
@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
     });
     if (result) {
       const ObjectId = new mongoose.Types.ObjectId(req.body.viewed_profile_id);
-      const data = await affiliateProfile.findOne({
+      const data = await creatorProfile.findOne({
         _id: ObjectId,
       });
 

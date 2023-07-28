@@ -1,5 +1,5 @@
 const { CronJob } = require("cron");
-const affiliateCampaignMap = require("../../models/affiliateCampaignMap");
+const creatorCampaignMap = require("../../models/creatorCampaignMap");
 const campaignTiktokVideoMap = require("../../models/campaignTiktokVideoMap");
 const reportsTiktokCampaign = require("../../models/reportsTiktokCampaign");
 const axios = require("axios");
@@ -7,7 +7,7 @@ const axios = require("axios");
 const updateTiktokVideos = new CronJob("0 * * * *", async () => {
   console.log("Updating active Video listing, timestamp: ", new Date());
 
-  const data = await affiliateCampaignMap.aggregate([
+  const data = await creatorCampaignMap.aggregate([
     {
       $match: { campaign_status: "Active" },
     },
@@ -59,14 +59,14 @@ const updateTiktokVideos = new CronJob("0 * * * *", async () => {
   if (data.length > 0) {
     const vidqueryEndpoint =
       "https://open.tiktokapis.com/v2/video/query/?fields=id,like_count,comment_count,share_count,view_count";
-    await data.map(async (affiliateCampaign) => {
+    await data.map(async (creatorCampaign) => {
       try {
-        const access_token = `Bearer ${affiliateCampaign.access_token[0].access_token}`;
+        const access_token = `Bearer ${creatorCampaign.access_token[0].access_token}`;
         const result = await axios.post(
           vidqueryEndpoint,
           {
             filters: {
-              video_ids: affiliateCampaign.video_list,
+              video_ids: creatorCampaign.video_list,
             },
           },
           {
@@ -79,11 +79,11 @@ const updateTiktokVideos = new CronJob("0 * * * *", async () => {
         if (result) {
           result.data.data.videos.map(async (videos) => {
             const campaignTiktok = await campaignTiktokVideoMap.findOne({
-              campaign_id: affiliateCampaign.campaign_id,
+              campaign_id: creatorCampaign.campaign_id,
               video_id: videos.id,
             });
             const newReportsTiktokCampaign = new reportsTiktokCampaign({
-              campaign_id: affiliateCampaign.campaign_id,
+              campaign_id: creatorCampaign.campaign_id,
               video_id: videos.id,
               like_count: videos.like_count,
               comment_count: videos.comment_count,

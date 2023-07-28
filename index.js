@@ -4,7 +4,9 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const { refreshTiktokToken } = require("./modules/cron/cronrefreshtiktoktoken");
-const { updateTiktokVideos } = require("./modules/cron/cronupdateactivecampaign");
+const {
+  updateTiktokVideos,
+} = require("./modules/cron/cronupdateactivecampaign");
 
 const app = express();
 
@@ -30,8 +32,8 @@ const UpdateprofileRoute = require("./routers/dashboard/profileupdate");
 const GetprofileRoute = require("./routers/dashboard/profilegetdetails");
 const GetaffiliatelistRoute = require("./routers/dashboard/profilegetlist");
 
-const AffiliateLoginRoute = require("./routers/accounts/affiliatelogin");
-const AffiliateregisterRoute = require("./routers/accounts/affiliateregister");
+const AffiliateLoginRoute = require("./routers/accounts/creatorlogin");
+const AffiliateregisterRoute = require("./routers/accounts/creatorregister");
 const BrandloginRoute = require("./routers/accounts/brandlogin");
 const BrandregisterRoute = require("./routers/accounts/brandregister");
 const LogoutRoute = require("./routers/accounts/logout");
@@ -92,8 +94,8 @@ app.use("/api/profile/update", UpdateprofileRoute);
 app.use("/api/profile/get", GetprofileRoute);
 app.use("/api/profile/getlist", GetaffiliatelistRoute);
 
-app.use("/api/affiliate/login", AffiliateLoginRoute);
-app.use("/api/affiliate/register", AffiliateregisterRoute);
+app.use("/api/creator/login", AffiliateLoginRoute);
+app.use("/api/creator/register", AffiliateregisterRoute);
 app.use("/api/brand/login", BrandloginRoute);
 app.use("/api/brand/register", BrandregisterRoute);
 app.use("/api/logout", LogoutRoute);

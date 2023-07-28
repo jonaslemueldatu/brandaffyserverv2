@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const campaigns = require("../../models/campaigns");
 const brandBox = require("../../models/brandBox");
 const brandProfile = require("../../models/brandProfile");
-const affiliateCampaignMap = require("../../models/affiliateCampaignMap");
+const creatorCampaignMap = require("../../models/creatorCampaignMap");
 
 router.post("/", async (req, res) => {
   const Data2 = await campaigns.findOne({
@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
   );
   if (Data3 && list.length > 0) {
     list.map(async (affiliateId) => {
-      let newaffiliateCampaignMap = new affiliateCampaignMap({
+      let newcreatorCampaignMap = new creatorCampaignMap({
         brand_owner_id: req.body.brand_owner_id,
         campaign_id: Data3._id.toString(),
         affiliate_id: affiliateId,
@@ -63,7 +63,7 @@ router.post("/", async (req, res) => {
         campaign_status: "Ready To Start",
         invite_date: Date.now(),
       });
-      await newaffiliateCampaignMap.save();
+      await newcreatorCampaignMap.save();
     });
   }
 
