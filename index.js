@@ -44,6 +44,9 @@ const GettiktokvideolistRoute = require("./routers/social/socialgettiktokvideoli
 
 const SubscriptiongetdetailsRouter = require("./routers/payment/subscriptiongetdetails");
 
+//Test
+const Subscriptionpaymentcreatemethod = require("./routers/payment/subscriptioncreatepaymentmethod")
+
 mongoose.connect(
   process.env.MONGO_DB_URI,
   { useNewUrlParser: true },
@@ -105,6 +108,7 @@ app.use("/api/tiktok/profile", GettiktokprofileRoute);
 app.use("/api/tiktok/getvideolist", GettiktokvideolistRoute);
 
 app.use("/api/subscription/getdetails", SubscriptiongetdetailsRouter);
+app.use("/api/subscription/payment/createmethod", Subscriptionpaymentcreatemethod)
 
 app.listen(process.env.SERVER_PORT, () =>
   console.log(`App is now running at ${process.env.SERVER_PORT}!`)
