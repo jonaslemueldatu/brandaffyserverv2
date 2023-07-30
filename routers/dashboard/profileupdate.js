@@ -44,6 +44,12 @@ router.post("/", upload.single("profile_picture"), async (req, res) => {
         if (data.last_name != req.body.lastname) {
           data.last_name = req.body.lastname;
         }
+        if (data.occupation != req.body.occupation) {
+          data.occupation = req.body.occupation;
+        }
+        if (data.niche != req.body.niche) {
+          data.niche = req.body.niche;
+        }
         if (data.age != req.body.age) {
           data.age = req.body.age;
         }

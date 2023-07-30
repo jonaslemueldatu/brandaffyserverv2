@@ -21,6 +21,8 @@ const creatorProfileSchema = new Schema({
   phone_number: String,
   province: String,
   country: String,
+  niche: String,
+  occupation: String,
   social_tiktok: {
     type: Boolean,
     default: false,

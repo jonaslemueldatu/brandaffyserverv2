@@ -18,6 +18,22 @@ const campaignsSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  social_total_views: {
+    type: Number,
+    default: 0,
+  },
+  social_total_likes: {
+    type: Number,
+    default: 0,
+  },
+  social_total_comments: {
+    type: Number,
+    default: 0,
+  },
+  social_total_shares: {
+    type: Number,
+    default: 0,
+  },
   start_date: Date,
   cancelled_date: Date,
   end_date: Date,
