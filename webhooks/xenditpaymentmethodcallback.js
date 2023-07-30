@@ -12,9 +12,10 @@ router.post("/", async (req, res) => {
       msg: "Successfully received callback",
     });
     const ObjectId = new mongoose.Types.ObjectId(req.body.data.reference_id);
+    let subscriptionData;
     switch (req.body.data.status) {
       case "ACTIVE":
-        const subscriptionData = await brandSubscription.findOne({
+        subscriptionData = await brandSubscription.findOne({
           _id: ObjectId,
         });
         subscriptionData.plan_payment_methods.push(
