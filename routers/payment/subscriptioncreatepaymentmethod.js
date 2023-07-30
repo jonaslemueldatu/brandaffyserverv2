@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 const dotEnv = require("dotenv").config();
 const axios = require("axios");
-const Buffer = require("buffer");
+const { Buffer } = require("buffer");
 
 router.post("/", async (req, res) => {
   try {
@@ -49,8 +49,6 @@ router.post("/", async (req, res) => {
         },
       }
     );
-
-    console.log(paymentMethodObject.data.actions[0].url);
 
     res.status(200);
     res.json({
