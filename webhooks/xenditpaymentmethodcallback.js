@@ -11,7 +11,10 @@ router.post("/", async (req, res) => {
     const subscriptionData = await brandSubscription.findOne({
       _id: ObjectId,
     });
-    subscriptionData.push(req.body);
+    subscriptionData.plan_payment_methods.push(
+      req.body.data.ewallet.channel_code
+    );
+    subscriptionData.plan_payment_methods_object.push(req.body);
   } catch (error) {
     console.log(`xenditpaymentmethodcallback.js, ${error.message}`);
   }
