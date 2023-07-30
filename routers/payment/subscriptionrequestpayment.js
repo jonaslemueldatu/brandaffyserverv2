@@ -25,6 +25,7 @@ router.post("/", async (req, res) => {
         failure_return_url: returnUrl,
         cancel_return_url: returnUrl,
       },
+      metadata: req.body.metadata,
     };
     const paymentMethodObject = await axios.post(
       `https://api.xendit.co/payment_requests`,

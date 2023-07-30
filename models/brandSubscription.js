@@ -21,7 +21,7 @@ const brandSubscriptionSchema = new Schema({
   },
   plan_charge_amount: {
     type: Number,
-    default: 149900,
+    default: 1499,
   },
   plan_current_active_boxes: {
     type: Number,
