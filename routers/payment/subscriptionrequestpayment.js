@@ -39,6 +39,11 @@ router.post("/", async (req, res) => {
         },
       }
     );
+    console.log(paymentMethodObject);
+    res.status(200);
+    res.json({
+      msg: "Successfully sent payment request",
+    });
   } catch (error) {
     console.log(`router, ${error}`);
   }
