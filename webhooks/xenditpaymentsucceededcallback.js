@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     res.json({
       msg: "Successfully received webhook",
     });
-    console.log(req.data);
+    console.log(req.body);
   } catch (error) {
     console.log(`xenditpaymentsucceededcallback.js, ${error.message}`);
   }

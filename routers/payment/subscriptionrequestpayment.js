@@ -38,7 +38,6 @@ router.post("/", async (req, res) => {
         },
       }
     );
-    console.log(paymentMethodObject.data);
   } catch (error) {
     console.log(`router, ${error}`);
   }
