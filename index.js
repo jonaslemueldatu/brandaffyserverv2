@@ -43,11 +43,12 @@ const GettiktokprofileRoute = require("./routers/social/socialgettiktokdata");
 const GettiktokvideolistRoute = require("./routers/social/socialgettiktokvideolist");
 
 const SubscriptiongetdetailsRouter = require("./routers/payment/subscriptiongetdetails");
-const Subscriptionpaymentcreatemethod = require("./routers/payment/subscriptioncreatepaymentmethod");
+const SubscriptionpaymentcreatemethodRouter = require("./routers/payment/subscriptioncreatepaymentmethod");
+const SubscriptionrequestpaymentRouter = require("./routers/payment/subscriptionrequestpayment");
 
 // Webhook
 const CallbackpaymentmethodRouter = require("./webhooks/xenditpaymentmethodcallback");
-
+const CallbackpaymentsucceededRouter = require("./webhooks/xenditpaymentsucceededcallback");
 
 mongoose.connect(
   process.env.MONGO_DB_URI,
@@ -110,13 +111,15 @@ app.use("/api/tiktok/profile", GettiktokprofileRoute);
 app.use("/api/tiktok/getvideolist", GettiktokvideolistRoute);
 
 app.use("/api/subscription/getdetails", SubscriptiongetdetailsRouter);
-app.use("/api/subscription/createmethod", Subscriptionpaymentcreatemethod)
+app.use(
+  "/api/subscription/createmethod",
+  SubscriptionpaymentcreatemethodRouter
+);
+app.use("/api/subscription/requestpayment", SubscriptionrequestpaymentRouter);
 
 // Webhooks
-app.use(
-  "/api/callback/paymentmethod",
-  CallbackpaymentmethodRouter
-);
+app.use("/api/callback/paymentmethod", CallbackpaymentmethodRouter);
+app.use("/api/callback/paymentsucceeded", CallbackpaymentsucceededRouter);
 
 app.listen(process.env.SERVER_PORT, () =>
   console.log(`App is now running at ${process.env.SERVER_PORT}!`)
