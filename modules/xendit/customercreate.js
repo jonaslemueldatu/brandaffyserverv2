@@ -1,5 +1,6 @@
 const dotEnv = require("dotenv").config();
 const axios = require("axios");
+const { Buffer } = require("buffer");
 
 const createXenditCustomer = async (
   user_type,
@@ -42,7 +43,7 @@ const createXenditCustomer = async (
     }
     const xenditCustomer = await axios.post(url, reqBody, {
       headers: {
-        Authorization: `Basic ${btoa(apiKey + ":")}`,
+        Authorization: `Basic ${Buffer.from(apiKey + ":").toString("base64")}`,
         "Content-Type": "application/json",
       },
     });
