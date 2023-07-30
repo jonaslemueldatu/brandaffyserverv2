@@ -7,6 +7,7 @@ const brandSubscription = require("../models/brandSubscription");
 
 router.post("/", async (req, res) => {
   try {
+    res.status(200);
     const ObjectId = new mongoose.Types.ObjectId(req.body.data.reference_id);
     const subscriptionData = await brandSubscription.findOne({
       _id: ObjectId,
@@ -16,7 +17,6 @@ router.post("/", async (req, res) => {
       req.body.data.ewallet.channel_code
     );
     subscriptionData.plan_payment_methods_object.push(req.body);
-    res.status(200);
   } catch (error) {
     console.log(`xenditpaymentmethodcallback.js, ${error.message}`);
   }
