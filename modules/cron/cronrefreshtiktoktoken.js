@@ -57,7 +57,7 @@ const refreshTiktokToken = new CronJob("0 * * * *", async () => {
         });
         if (updateData) {
           updateData.access_token = result.data.access_token;
-          updateData.access_expires_in = dt.setDate(now.getDate() + 1);
+          updateData.access_expires_in = dt.setDate(dt.getDate() + 1);
           updateData.refresh_token = result.data.refresh_token;
           updateData.save();
         }

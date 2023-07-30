@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
     const newcreatorSubscription = new creatorSubscription({
       email: req.body.email,
       creator_profile_id: newcreatorProfile._id.toString(),
-      xendit_referrence_id: newXenditCustomer.id,
+      xendit_reference_id: newXenditCustomer.id,
     });
 
     //Create new jwt login token

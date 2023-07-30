@@ -39,7 +39,9 @@ const brandSubscriptionSchema = new Schema({
     type: String,
     default: "Starter",
   },
-  xendit_referrence_id: String,
+  plan_payment_methods_object: Array,
+  plan_payment_methods: Array,
+  xendit_reference_id: String,
 });
 
 const brandSubscription = mongoose.model(

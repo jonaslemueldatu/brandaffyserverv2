@@ -1,0 +1,20 @@
+const express = require("express");
+const router = express.Router();
+
+//Model Imports
+const brandSubscription = require("../models/brandSubscription");
+
+router.post("/", async (req, res) => {
+  try {
+    console.log(req.body);
+    const ObjectId = new mongoose.Types.ObjectId(req.body.business_id);
+    const subscriptionData = await brandSubscription.findOne({
+      _id: ObjectId,
+    });
+    subscriptionData.push(req.body);
+  } catch (error) {
+    console.log(`xenditpaymentmethodcallback.js, ${error.message}`);
+  }
+});
+
+module.exports = router;

@@ -28,7 +28,7 @@ const creatorSubscriptionSchema = new Schema({
     type: Number,
     default: 0,
   },
-  xendit_referrence_id: String,
+  xendit_reference_id: String,
 });
 
 const creatorSubscription = mongoose.model(
