@@ -19,6 +19,7 @@ router.post("/", async (req, res) => {
       req.body.data.ewallet.channel_code
     );
     subscriptionData.plan_payment_methods_object.push(req.body);
+    console.log(subscriptionData);
   } catch (error) {
     console.log(`xenditpaymentmethodcallback.js, ${error.message}`);
   }
