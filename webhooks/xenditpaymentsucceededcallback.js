@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
 
         // Update subscription data
         let dt;
-        if (planUpdate.plan_title === req.body.metadata.new_plan) {
+        if (planUpdate.plan_title === req.body.data.metadata.new_plan) {
           dt = new Date(planUpdate.plan_expiration_date);
           dt.setDate(dt.getDate() + 30);
           planUpdate.plan_expiration_date = dt;
