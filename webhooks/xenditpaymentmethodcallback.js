@@ -9,17 +9,22 @@ router.post("/", async (req, res) => {
   try {
     res.status(200);
     res.json({
-      msg: "Successfully received callback"
-    })
-    console.log(req.body.data.reference_id);
-    const ObjectId = new mongoose.Types.ObjectId(req.body.data.reference_id);
-    const subscriptionData = await brandSubscription.findOne({
-      _id: ObjectId,
+      msg: "Successfully received callback",
     });
-    subscriptionData.plan_payment_methods.push(
-      req.body.data.ewallet.channel_code
-    );
-    subscriptionData.plan_payment_methods_object.push(req.body);
+    const ObjectId = new mongoose.Types.ObjectId(req.body.data.reference_id);
+    switch (req.body.data.status) {
+      case "ACTIVE":
+        const subscriptionData = await brandSubscription.findOne({
+          _id: ObjectId,
+        });
+        subscriptionData.plan_payment_methods.push(
+          req.body.data.ewallet.channel_code
+        );
+        subscriptionData.plan_payment_methods_object.push(req.body.data);
+        break;
+      default:
+        break;
+    }
     await subscriptionData.save();
   } catch (error) {
     console.log(`xenditpaymentmethodcallback.js, ${error.message}`);
