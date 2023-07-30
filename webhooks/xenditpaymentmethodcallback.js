@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 
 //Model Imports
 const brandSubscription = require("../models/brandSubscription");
 
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body);
     const ObjectId = new mongoose.Types.ObjectId(req.body.business_id);
     const subscriptionData = await brandSubscription.findOne({
       _id: ObjectId,
