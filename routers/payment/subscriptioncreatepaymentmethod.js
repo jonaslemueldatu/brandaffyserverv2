@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 const dotEnv = require("dotenv").config();
 const axios = require("axios");
+const Buffer = require("buffer");
 
 router.post("/", async (req, res) => {
   try {
@@ -41,7 +42,9 @@ router.post("/", async (req, res) => {
       reqBody,
       {
         headers: {
-          Authorization: `Basic ${btoa(apiKey + ":")}`,
+          Authorization: `Basic ${Buffer.from(apiKey + ":").toString(
+            "base64"
+          )}`,
           "Content-Type": "application/json",
         },
       }
