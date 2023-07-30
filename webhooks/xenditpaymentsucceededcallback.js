@@ -11,10 +11,9 @@ router.post("/", async (req, res) => {
     res.json({
       msg: "Successfully received webhook",
     });
-    res.send("Hello World");
     console.log(req.data);
   } catch (error) {
-    console.log(`xenditpaymentmethodcallback.js, ${error.message}`);
+    console.log(`xenditpaymentsucceededcallback.js, ${error.message}`);
   }
 });
 
