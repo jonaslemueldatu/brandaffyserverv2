@@ -103,6 +103,8 @@ const updateTiktokVideos = new CronJob("0 * * * *", async () => {
               (campaignTiktok.view_count = videos.view_count),
               await campaignTiktok.save();
           });
+
+          
         } else {
           console.log("Failed to get data");
         }
@@ -110,6 +112,11 @@ const updateTiktokVideos = new CronJob("0 * * * *", async () => {
         console.log(error);
       }
     });
+
+
+
+
+
   } else {
     console.log("No data to update");
   }
